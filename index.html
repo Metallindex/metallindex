@@ -1,0 +1,1120 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edelmetall Analytics & Markt Global — Überarbeitet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CORE DESIGN SYSTEM --- */
+        :root {
+            --gold: #d4af37;
+            --silver: #c0c0c0;
+            --platinum: #e5e4e2;
+            --palladium: #bca987; /* Neuer Farbton für Palladium */
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-header: rgba(15, 23, 42, 0.95);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --border: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+
+        @media(min-width: 992px) {
+            .grid-2 {
+                grid-template-columns: 2fr 1fr;
+            }
+
+            .grid-halves {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            transition: 0.3s;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+            a:hover {
+                color: var(--gold);
+            }
+
+        /* --- NAVIGATION (STICKY) --- */
+        nav {
+            background: var(--bg-header);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .nav-btn:hover, .nav-btn.active {
+                color: var(--gold);
+                background: rgba(212, 175, 55, 0.05);
+                border-color: rgba(212, 175, 55, 0.2);
+            }
+
+        /* Currency Toggle Switch */
+        .currency-switch, .unit-switch {
+            display: flex;
+            background: #020617;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2px;
+            margin-left: 15px;
+        }
+
+        .currency-option {
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-muted);
+            transition: 0.3s;
+        }
+
+            .currency-option.active {
+                background: var(--gold);
+                color: #000;
+            }
+
+        /* --- LOGIN OVERLAY --- */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #020617;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- CARDS & SECTIONS --- */
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            border-left: 4px solid var(--gold);
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        /* --- COMPARISON TABLE --- */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+            .comparison-table th, .comparison-table td {
+                text-align: left;
+                padding: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .comparison-table th {
+                color: var(--gold);
+                text-transform: uppercase;
+                font-size: 0.85rem;
+            }
+
+            .comparison-table tr:hover {
+                background: rgba(255,255,255,0.02);
+            }
+
+        .check-icon {
+            color: var(--success);
+        }
+
+        .cross-icon {
+            color: var(--danger);
+        }
+
+        /* --- FORMS & CALCULATOR --- */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+            input:focus, select:focus {
+                outline: none;
+                border-color: var(--gold);
+            }
+
+        .btn-primary {
+            background-color: var(--gold);
+            color: #0f172a;
+            border: none;
+            padding: 12px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.3s;
+        }
+
+            .btn-primary:hover {
+                opacity: 0.9;
+            }
+
+        .result-display {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--gold);
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .price-huge {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* --- FOOTER & UTILS --- */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .legal-links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+            .legal-links a {
+                font-size: 0.85rem;
+                color: var(--text-muted);
+                text-decoration: underline;
+            }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 90;
+            border: none;
+        }
+
+            .scroll-top.visible {
+                opacity: 1;
+            }
+
+        .hidden-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        /* --- MODAL FOR IMPRESSUM --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid var(--gold);
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close-modal {
+            color: var(--text-muted);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close-modal:hover {
+                color: white;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Ticker Adjustment */
+        .ticker-container {
+            height: 46px;
+            background: black;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-overlay">
+        <div class="login-box">
+            <div style="font-size: 3rem; color: var(--gold); margin-bottom: 15px;">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h2 style="margin-top:0; color: white;">Zugriff geschützt</h2>
+            <p style="color: var(--text-muted);">Autorisierung erforderlich</p>
+            <input type="password" id="passwordInput" placeholder="Passwort eingeben" style="margin-bottom: 15px;">
+            <button class="btn-primary" onclick="checkPassword()">Login</button>
+            <p id="loginError" style="color: #ef4444; display: none; margin-top: 10px; font-size: 0.9rem;">
+                <i class="fa-solid fa-circle-exclamation"></i> Passwort ungültig
+            </p>
+        </div>
+    </div>
+
+    <div id="main-app" style="display:none;">
+
+        <div class="ticker-container">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                {
+                "symbols": [
+                    { "proName": "FOREXCOM:XAUUSD", "title": "Gold" },
+                    { "proName": "FOREXCOM:XAGUSD", "title": "Silber" },
+                    { "proName": "TVC:PLATINUM", "title": "Platin" },
+                    { "proName": "TVC:PALLADIUM", "title": "Palladium" },
+                    { "proName": "FX_IDC:EURUSD", "title": "EUR/USD" },
+                    { "proName": "TVC:SHANGHAI", "title": "Shanghai Index" }
+                ],
+                "showSymbolLogo": true,
+                "colorTheme": "dark",
+                "isTransparent": false,
+                "displayMode": "adaptive",
+                "locale": "de_DE"
+                }
+                </script>
+            </div>
+        </div>
+
+        <nav>
+            <div class="container nav-wrapper">
+                <div class="brand">
+                    <i class="fa-solid fa-coins"></i> Edelmetall<span style="color:white">Portal</span>
+                </div>
+                <div class="nav-links">
+                    <button class="nav-btn active" onclick="switchView('dashboard')">
+                        <i class="fa-solid fa-chart-line"></i> <span style="display:none; display:md-block;">Dashboard</span>
+                    </button>
+                    <button class="nav-btn" onclick="switchView('analysis')">
+                        <i class="fa-solid fa-earth-americas"></i> <span style="display:none; display:md-block;">Markt-Analyse</span>
+                    </button>
+                    <button class="nav-btn" onclick="switchView('calculator')">
+                        <i class="fa-solid fa-calculator"></i> <span style="display:none; display:md-block;">Rechner</span>
+                    </button>
+                    <button class="nav-btn" onclick="switchView('info')">
+                        <i class="fa-solid fa-circle-info"></i> <span style="display:none; display:md-block;">Wissen</span>
+                    </button>
+
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="currency-switch">
+                            <div class="currency-option active" id="btn-eur" onclick="setCurrency('EUR')">€</div>
+                            <div class="currency-option" id="btn-usd" onclick="setCurrency('USD')">$</div>
+                        </div>
+
+                        <div class="unit-switch" title="Einheit wechseln (Gramm / Feinunze)">
+                            <div class="currency-option active" id="unit-g" onclick="setUnit('g')">g</div>
+                            <div class="currency-option" id="unit-oz" onclick="setUnit('oz')">oz</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container" style="padding-top: 30px; padding-bottom: 30px;">
+
+            <div id="dashboard" class="hidden-section" style="display: block;">
+                <div class="grid grid-2">
+                    <div class="card" style="min-height: 500px;">
+                        <h2 class="section-title"><i class="fa-solid fa-chart-area"></i> Marktübersicht</h2>
+                        <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
+                            <div class="tradingview-widget-container__widget" style="height: calc(100% - 32px); width: 100%;"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+                            {
+                            "symbols": [
+                                [ "Gold", "FOREXCOM:XAUUSD|1D" ],
+                                [ "Silber", "FOREXCOM:XAGUSD|1D" ],
+                                [ "Platin", "TVC:PLATINUM|1D" ],
+                                [ "Palladium", "TVC:PALLADIUM|1D" ]
+                            ],
+                            "chartOnly": false,
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "de_DE",
+                            "colorTheme": "dark",
+                            "autosize": true,
+                            "showVolume": false,
+                            "hideDateRanges": false,
+                            "scalePosition": "right"
+                            }
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> Interne Berichte</h2>
+                        <div id="custom-news-feed">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="analysis" class="hidden-section">
+
+                <h2 class="section-title">Globaler Vergleich: Shanghai vs. New York (COMEX)</h2>
+                <div class="grid grid-halves" style="margin-bottom: 40px;">
+                    <div class="card" style="height: 400px;">
+                        <h3 style="color:var(--text-muted); margin-top:0;">Shanghai Gold Exchange (SGE)</h3>
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                            "symbol": "TVC:SHANGHAI",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "de_DE",
+                            "dateRange": "12M",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": true,
+                            "largeChartUrl": ""
+                            }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="card" style="height: 400px;">
+                        <h3 style="color:var(--text-muted); margin-top:0;">USA Gold Spot (USD)</h3>
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                            "symbol": "FOREXCOM:XAUUSD",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "de_DE",
+                            "dateRange": "12M",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": true,
+                            "largeChartUrl": ""
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="section-title"><i class="fa-solid fa-scale-unbalanced"></i> Vergleich: Physisches Metall vs. Papier-Gold</h2>
+                    <p style="color:var(--text-muted);">
+                        Investoren müssen sich entscheiden, ob sie echtes Eigentum oder Preisspekulation bevorzugen. Hier ist der Vergleich:
+                    </p>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Merkmal</th>
+                                <th>Physisch (Münzen/Barren)</th>
+                                <th>Papier (ETF/Zertifikate)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Eigentum</b></td>
+                                <td><i class="fa-solid fa-check check-icon"></i> Direktes Eigentum (Besitz)</td>
+                                <td><i class="fa-solid fa-xmark cross-icon"></i> Schuldverschreibung / Anspruch</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gegenparteirisiko</b></td>
+                                <td><i class="fa-solid fa-check check-icon"></i> Keines (bei eigener Lagerung)</td>
+                                <td><i class="fa-solid fa-xmark cross-icon"></i> Hoch (Emittentenrisiko)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Liquidität</b></td>
+                                <td>Mittel (Händler notwendig)</td>
+                                <td><i class="fa-solid fa-check check-icon"></i> Sehr Hoch (Börsenhandel)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Kosten</b></td>
+                                <td>Prämien (Aufgeld) + Lagerung</td>
+                                <td>Geringer Spread + Verwaltungsgebühr</td>
+                            </tr>
+                            <tr>
+                                <td><b>Krisenschutz</b></td>
+                                <td><i class="fa-solid fa-check check-icon"></i> Maximal (Unabhängig vom Finanzsystem)</td>
+                                <td>Gering (Teil des Finanzsystems)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div id="calculator" class="hidden-section">
+                <div class="grid grid-halves">
+                    <div class="card">
+                        <h2 class="section-title"><i class="fa-solid fa-scale-balanced"></i> Wert Rechner</h2>
+                        <div class="form-group">
+                            <label>Edelmetall</label>
+                            <select id="metalType" onchange="updateOptions()">
+                                <option value="gold">Gold</option>
+                                <option value="silver">Silber</option>
+                                <option value="platinum">Platin</option>
+                                <option value="palladium">Palladium</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Legierung / Feinheit</label>
+                            <select id="purity"></select>
+                        </div>
+                        <div class="form-group">
+                            <label id="weightLabel">Gewicht (in g)</label>
+                            <input type="number" id="weight" placeholder="0.00" step="0.01">
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <button class="btn-primary" onclick="calculatePrice()">
+                                <i class="fa-solid fa-calculator"></i> Berechnen
+                            </button>
+                            <button class="btn-primary" style="width:auto; padding:10px 14px;" onclick="manualRefresh()" id="refreshBtn" title="Manuell Preise aktualisieren">
+                                <i class="fa-solid fa-arrows-rotate"></i> Aktualisieren
+                            </button>
+                        </div>
+
+                        <div style="margin-top:10px; color:var(--text-muted); font-size:0.85rem;">
+                            <span id="lastUpdateText">Letztes Update: —</span>
+                        </div>
+                    </div>
+
+                    <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+                        <h2 class="section-title"><i class="fa-solid fa-sack-dollar"></i> Resultat</h2>
+                        <div class="result-display">
+                            <span style="color:var(--text-muted); font-size: 0.9rem;">Geschätzter Materialwert</span>
+                            <div class="price-huge" id="finalPrice">0,00</div>
+                            <div id="calculationDetails" style="margin-top:10px; color: var(--text-muted); font-size: 0.9rem;">
+                                Warte auf Eingabe...
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--success);"></i> System Status: Online (Live-Daten, gecached)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="info" class="hidden-section">
+                <h2 class="section-title">Metall Informationen</h2>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                    <div class="card" style="border-top: 3px solid var(--gold);">
+                        <h3 style="color: var(--gold)"><i class="fa-solid fa-ring"></i> Gold</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">
+                            Das wichtigste Edelmetall für Investoren. Zentralbanken halten weltweit Goldreserven als Inflationsschutz.
+                            <br><br><b>Aktueller Spot:</b> <span id="info-gold-price">...</span>
+                        </p>
+                    </div>
+                    <div class="card" style="border-top: 3px solid var(--silver);">
+                        <h3 style="color: var(--silver)"><i class="fa-solid fa-industry"></i> Silber</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">
+                            Hohe Volatilität. Unverzichtbar für Photovoltaik, Elektronik und Medizin. Wird oft als "Gold des kleinen Mannes" bezeichnet.
+                            <br><br><b>Aktueller Spot:</b> <span id="info-silver-price">...</span>
+                        </p>
+                    </div>
+                    <div class="card" style="border-top: 3px solid var(--platinum);">
+                        <h3 style="color: var(--platinum)"><i class="fa-solid fa-gem"></i> Platin</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">
+                            30-mal seltener als Gold. Hauptsächlich in Katalysatoren und Schmuck verwendet.
+                            <br><br><b>Aktueller Spot:</b> <span id="info-platinum-price">...</span>
+                        </p>
+                    </div>
+                    <div class="card" style="border-top: 3px solid var(--palladium);">
+                        <h3 style="color: var(--palladium)"><i class="fa-solid fa-microchip"></i> Palladium</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">
+                            Extrem selten. Hauptverwendung in Benzin-Katalysatoren. Preis reagiert stark auf die Automobilindustrie.
+                            <br><br><b>Aktueller Spot:</b> <span id="info-palladium-price">...</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 Edelmetall Portal Enterprise. Alle Rechte vorbehalten.</p>
+                <div class="legal-links">
+                    <a onclick="openModal('impressum')">Impressum</a>
+                    <a onclick="openModal('haftung')">Haftungsausschluss</a>
+                </div>
+            </div>
+        </footer>
+
+        <button class="scroll-top" onclick="window.scrollTo(0,0)" id="scrollTopBtn">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+
+    </div>
+
+    <div id="legalModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalText"></div>
+        </div>
+    </div>
+
+    <script>
+        /*
+         * WICHTIG - ARCHITEKTURHINWEIS (Kurz in den Kommentaren):
+         * - Frontend ruft /api/latest-prices (GET) um die aktuell vom Server gecachten Preise zu laden.
+         * - Server ist verantwortlich für: rotation der echten API-Keys 3x/Tag, limitierung auf ~100 reqs/Monat
+         *   und periodisches Abrufen externer Marktdaten zu festgelegten Zeiten (z.B. 00:00, 08:00, 16:00 UTC).
+         * - Optional: POST /api/refresh-prices (geschützt) kann manuelles Refresh triggern (serverseitig rate-limited).
+         * - So verhindern wir, dass einzelne Besucher die externen API-Aufrufe (die limitiert sind) verschwenden.
+         */
+
+        /* --- 1. KONFIGURATION & DATEN --- */
+
+        let currentCurrency = 'EUR'; // 'EUR' or 'USD'
+        let currentUnit = 'g'; // 'g' or 'oz'
+        const GRAMSPERTOYROUNCE = 31.1034768;
+
+        // Wechselkurs: falls serverseitig verfügbar bitte überschreiben beim Laden der Preise
+        let usdRate = 1.05; // 1 EUR = 1.05 USD (Default / Fallback)
+
+        // Fallback-Basispreise in EUR pro GRAM (werden beim Laden von /api/latest-prices überschrieben)
+        let prices = {
+            gold: 65.50,
+            silver: 0.80,
+            platinum: 29.00,
+            palladium: 32.50
+        };
+
+        // interne Daten
+        const myNewsData = [
+            { date: '30.12.2025', title: 'Jahresendrally bei Gold?', text: 'Die Märkte zeigen sich zum Jahresende volatil. Experten vermuten eine Unterstützungslinie bei 2.000 USD.' },
+            { date: '28.12.2025', title: 'Silbernachfrage steigt', text: 'Durch den Ausbau der Solarindustrie zieht die industrielle Nachfrage nach Silber weiter an.' },
+            { date: '15.12.2025', title: 'Palladium Update', text: 'Palladium stabilisiert sich nach den Schwankungen im Automobilsektor.' }
+        ];
+
+        // Update-Zeiten (Server-seitig auszuführen): Wir zeigen sie hier an, führen aber das Fetch primär gegen server-API aus.
+        const scheduledServerUpdateTimes = ["00:00", "08:00", "16:00"]; // lokale Darstellung
+
+        /* --- 2. LOGIN & VIEW LOGIK --- */
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === "Magnetar9!") {
+                document.getElementById('login-overlay').style.display = "none";
+                document.getElementById('main-app').style.display = "block";
+                renderNews();
+                // Beim Start die gecachten Preise laden
+                loadLatestPrices();
+                updateOptions();
+            } else {
+                document.getElementById('loginError').style.display = "block";
+            }
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.hidden-section').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(viewId).style.display = 'block';
+
+            const buttons = document.querySelectorAll('.nav-btn');
+            if (viewId === 'dashboard') buttons[0].classList.add('active');
+            if (viewId === 'analysis') buttons[1].classList.add('active');
+            if (viewId === 'calculator') buttons[2].classList.add('active');
+            if (viewId === 'info') buttons[3].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* --- 3. WÄHRUNGS & EINHEITS LOGIK --- */
+
+        function setCurrency(curr) {
+            currentCurrency = curr;
+            // Buttons umschalten
+            document.getElementById('btn-eur').classList.remove('active');
+            document.getElementById('btn-usd').classList.remove('active');
+            document.getElementById(`btn-${curr.toLowerCase()}`).classList.add('active');
+
+            updateInfoPrices();
+            // Immer neu berechnen (auch wenn kein Gewicht eingegeben wurde, calculatePrice prüft das)
+            calculatePrice();
+        }
+
+        function setUnit(unit) {
+            // prevUnit merken, damit wir das eingegebene Gewicht korrekt konvertieren können
+            const prevUnit = currentUnit;
+
+            // wenn kein Wechsel -> nichts tun
+            if (prevUnit === unit) return;
+
+            // Gewicht konvertieren, falls vorhanden
+            const weightInputEl = document.getElementById('weight');
+            const rawValue = parseFloat(weightInputEl.value);
+            if (!isNaN(rawValue) && rawValue > 0) {
+                let newValue;
+                if (prevUnit === 'g' && unit === 'oz') {
+                    // grams -> troy ounces
+                    newValue = rawValue / GRAMSPERTOYROUNCE;
+                } else if (prevUnit === 'oz' && unit === 'g') {
+                    // troy ounces -> grams
+                    newValue = rawValue * GRAMSPERTOYROUNCE;
+                } else {
+                    newValue = rawValue;
+                }
+                // runden auf 4 Nachkommastellen für bessere UX
+                weightInputEl.value = Math.round(newValue * 10000) / 10000;
+            }
+
+            currentUnit = unit;
+            document.getElementById('unit-g').classList.remove('active');
+            document.getElementById('unit-oz').classList.remove('active');
+            document.getElementById(`unit-${unit}`).classList.add('active');
+
+            // Update Label
+            document.getElementById('weightLabel').innerText = unit === 'g' ? 'Gewicht (in g)' : 'Gewicht (in oz)';
+
+            updateInfoPrices();
+            // Immer neu berechnen
+            calculatePrice();
+        }
+
+        function formatMoney(val, currency = currentCurrency) {
+            // stellt sicher, dass eine saubere Darstellung erfolgt
+            if (!isFinite(val)) return '—';
+            return val.toLocaleString('de-DE', {
+                style: 'currency',
+                currency: currency
+            });
+        }
+
+        function getPricePerDisplayUnitPerCurrency(basePriceEurPerGram) {
+            // basePriceEurPerGram: EUR per gram
+            let price = basePriceEurPerGram;
+            if (currentCurrency === 'USD') price = price * usdRate; // EUR -> USD
+
+            if (currentUnit === 'g') return price; // per gram in currentCurrency
+            return price * GRAMSPERTOYROUNCE; // per troy oz
+        }
+
+        /* --- 4. RECHNER LOGIK --- */
+
+        const alloys = {
+            gold: [
+                { name: "999 Feingold (24k)", val: 0.999 },
+                { name: "916 Krügerrand (22k)", val: 0.916 },
+                { name: "750 Gold (18k)", val: 0.750 },
+                { name: "585 Gold (14k)", val: 0.585 },
+                { name: "333 Gold (8k)", val: 0.333 }
+            ],
+            silver: [
+                { name: "999 Feinsilber", val: 0.999 },
+                { name: "925 Sterling", val: 0.925 },
+                { name: "800 Silber", val: 0.800 }
+            ],
+            platinum: [
+                { name: "999 Platin", val: 0.999 },
+                { name: "950 Platin", val: 0.950 }
+            ],
+            palladium: [
+                { name: "999 Palladium", val: 0.999 },
+                { name: "950 Palladium", val: 0.950 }
+            ]
+        };
+
+        function updateOptions() {
+            const metal = document.getElementById('metalType').value;
+            const select = document.getElementById('purity');
+            select.innerHTML = "";
+            alloys[metal].forEach(a => {
+                let opt = document.createElement("option");
+                opt.value = a.val; opt.text = a.name;
+                select.appendChild(opt);
+            });
+            // nach Auswahl die Anzeige aktualisieren
+            updateInfoPrices();
+        }
+
+        function calculatePrice() {
+            const metal = document.getElementById('metalType').value;
+            const purity = parseFloat(document.getElementById('purity').value);
+            const weightInput = parseFloat(document.getElementById('weight').value);
+
+            if (!weightInput || weightInput <= 0) {
+                document.getElementById('finalPrice').innerText = formatMoney(0);
+                document.getElementById('calculationDetails').innerText = "Bitte Gewicht eingeben.";
+                return;
+            }
+
+            // 1️⃣ Gewicht immer intern in Gramm
+            const weightInGrams = currentUnit === 'g' ? weightInput : (weightInput * GRAMSPERTOYROUNCE);
+
+            // 2️⃣ Basispreis: EUR / g
+            const basePriceEurPerGram = prices[metal];
+
+            // 3️⃣ Materialwert in EUR
+            let value = basePriceEurPerGram * weightInGrams * purity;
+
+            // 4️⃣ Währungsumrechnung
+            if (currentCurrency === 'USD') {
+                value *= usdRate;
+            }
+
+            document.getElementById('finalPrice').innerText = formatMoney(value);
+
+            // 5️⃣ Anzeige-Details
+            const displaySpot = getPricePerDisplayUnitPerCurrency(basePriceEurPerGram);
+            const unitLabel = currentUnit === 'g' ? '/g' : '/oz';
+
+            document.getElementById('calculationDetails').innerText =
+                `Spotpreis: ${formatMoney(displaySpot)} ${unitLabel} · Feinheit ${Math.round(purity * 1000)}/1000`;
+        }
+
+        /* --- 5. DATENLADE & CACHING (Kommunikation mit Server) --- */
+
+        // Lade die zuletzt vom Server gecachten Preise
+        async function loadLatestPrices() {
+            try {
+                const resp = await fetch('/api/latest-prices');
+                if (!resp.ok) throw new Error('No server cache');
+                const data = await resp.json();
+
+                // Erwartetes Format: { prices: {gold: x, silver: y, ...} , usdRate: 1.05, timestamp: 'ISO' }
+                if (data.prices) {
+                    prices = data.prices;
+                }
+                if (data.usdRate) usdRate = data.usdRate;
+
+                const ts = data.timestamp ? new Date(data.timestamp) : new Date();
+                document.getElementById('lastUpdateText').innerText = 'Letztes Update: ' + ts.toLocaleString('de-DE');
+
+                // cache lokal als Fallback
+                localStorage.setItem('cachedPrices', JSON.stringify({ prices, usdRate, timestamp: new Date().toISOString() }));
+
+                // UI
+                updateInfoPrices();
+                // Recalc falls input vorhanden
+                calculatePrice();
+
+            } catch (e) {
+                // Fallback: versuche lokal gespeicherte Werte
+                const cached = localStorage.getItem('cachedPrices');
+                if (cached) {
+                    const parsed = JSON.parse(cached);
+                    prices = parsed.prices || prices;
+                    usdRate = parsed.usdRate || usdRate;
+                    const ts = parsed.timestamp ? new Date(parsed.timestamp) : new Date();
+                    document.getElementById('lastUpdateText').innerText = 'Letztes Update (lokal): ' + ts.toLocaleString('de-DE');
+                    updateInfoPrices();
+                } else {
+                    document.getElementById('lastUpdateText').innerText = 'Letztes Update: nicht verfügbar';
+                }
+            }
+        }
+
+        // Manuelles Refresh: ruft eine serverseitige Route, die durch den Server rate-limited ist.
+        // Frontend verhindert Mehrfachklicks durch lokale Limitierung (damit Besucher die API nicht verschwenden).
+        async function manualRefresh() {
+            // lokale Rate-Limitierung: max. 2 manuelle Refreshes pro Tag vom gleichen Browser
+            const todayKey = 'manualRefreshCount_' + (new Date().toISOString().slice(0, 10));
+            const used = parseInt(localStorage.getItem(todayKey) || '0', 10);
+            if (used >= 2) {
+                alert('Manuelles Aktualisieren wurde limitiert: Sie haben das Tageslimit erreicht. Bitte warten Sie bis morgen oder nutzen Sie die serverseitigen geplanten Updates.');
+                return;
+            }
+
+            // Deaktiviere Button kurz
+            const btn = document.getElementById('refreshBtn');
+            btn.disabled = true;
+            btn.style.opacity = 0.6;
+
+            try {
+                const resp = await fetch('/api/refresh-prices', { method: 'POST' });
+                if (!resp.ok) throw new Error('Refresh failed');
+                // server aktualisiert dann seine cache und gibt die neuesten Werte zurück
+                await loadLatestPrices();
+                localStorage.setItem(todayKey, String(used + 1));
+            } catch (e) {
+                alert('Preise konnten nicht aktualisiert werden. Bitte später erneut versuchen.');
+            } finally {
+                btn.disabled = false;
+                btn.style.opacity = 1;
+            }
+        }
+
+        /* --- 6. UI RENDER & HILFSFUNKTIONEN --- */
+
+        function renderNews() {
+            const container = document.getElementById('custom-news-feed');
+            let html = '';
+            myNewsData.forEach(item => {
+                html += `
+                                    <div class="news-item">
+                                        <span class="news-date"><i class="fa-regular fa-clock"></i> ${item.date}</span>
+                                        <h4 class="news-title">${item.title}</h4>
+                                        <p class="news-excerpt">${item.text}</p>
+                                    </div>
+                                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function updateInfoPrices() {
+            // Zeigt die Preise je nach ausgewählter Währung & Einheit an
+            document.getElementById('info-gold-price').innerText = getReadablePrice('gold');
+            document.getElementById('info-silver-price').innerText = getReadablePrice('silver');
+            document.getElementById('info-platinum-price').innerText = getReadablePrice('platinum');
+            document.getElementById('info-palladium-price').innerText = getReadablePrice('palladium');
+        }
+
+        function getReadablePrice(metalKey) {
+            const base = prices[metalKey]; // EUR / g
+            const displayPerUnit = getPricePerDisplayUnitPerCurrency(base);
+            const unitLabel = currentUnit === 'g' ? '/g' : '/oz';
+            return `${formatMoney(displayPerUnit)} ${unitLabel}`;
+        }
+
+        /* --- 7. STARTUP & FALLBACK SIMULATION (nur falls kein Server vorhanden) --- */
+
+        // Wenn kein Server vorhanden ist, läuft weiter die Simulation im Hintergrund - nur als Fallback.
+        function startSimulationFallback() {
+            setInterval(() => {
+                prices.gold += (Math.random() - 0.5) * 0.15;
+                prices.silver += (Math.random() - 0.5) * 0.02;
+                prices.platinum += (Math.random() - 0.5) * 0.10;
+                prices.palladium += (Math.random() - 0.5) * 0.12;
+
+                updateInfoPrices();
+                calculatePrice();
+            }, 3000);
+        }
+
+        /* --- 8. MODALS & LEGAL --- */
+        function openModal(type) {
+            const modal = document.getElementById('legalModal');
+            const content = document.getElementById('modalText');
+
+            if (type === 'impressum') {
+                content.innerHTML = `
+                                <h2 style="color:var(--gold)">Impressum</h2>
+                                <p><b>Angaben gemäß § 5 TMG</b></p>
+                                <p>Edelmetall Portal Enterprise Ltd.<br>
+                                Musterstraße 123<br>
+                                10115 Berlin<br>
+                                Deutschland</p>
+                                <p><b>Kontakt:</b><br>
+                                Telefon: +49 (0) 123 44 55 66<br>
+                                E-Mail: info@edelmetall-portal-demo.de</p>
+                                <p><b>Registereintrag:</b><br>
+                                Eintragung im Handelsregister.<br>
+                                Registergericht: Amtsgericht Berlin-Charlottenburg<br>
+                                Registernummer: HRB 999999</p>
+                            `;
+            } else {
+                content.innerHTML = `
+                                <h2 style="color:var(--gold)">Haftungsausschluss (Disclaimer)</h2>
+                                <p><b>Haftung für Inhalte</b></p>
+                                <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
+                                <p><b>Keine Anlageberatung</b></p>
+                                <p>Die Inhalte dieser Webseite dienen ausschließlich der Information und stellen keine Anlageberatung oder Empfehlung zum Kauf oder Verkauf von Edelmetallen dar. Die dargestellten Kurse (im Simulationsmodus) sind fiktiv oder verzögert. Wir übernehmen keine Haftung für finanzielle Verluste, die durch die Nutzung dieser Informationen entstehen.</p>
+                            `;
+            }
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('legalModal').style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('legalModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        /* --- 9. UTILS --- */
+        window.onscroll = function () {
+            const btn = document.getElementById('scrollTopBtn');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        };
+
+        // falls die server-API nicht existiert, starten wir die Fallback-Simulation
+        (async function tryLoadOnStart() {
+            try {
+                // kurzer Test-Call
+                const test = await fetch('/api/latest-prices');
+                if (!test.ok) throw new Error('no server');
+                // wenn server antwortet -> loadLatestPrices wird später aufgerufen nach login
+            } catch (e) {
+                // kein server: start fallback simulation sobald eingeloggter Nutzer ist
+                // Wir reden hier über lokalen Fallback; die eigentliche Architektur soll serverseitig die Key-Rotation & Planung übernehmen.
+                startSimulationFallback();
+            }
+        })();
+
+    </script>
+</body>
+</html>
