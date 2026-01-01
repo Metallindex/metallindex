@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>T&T Edelmetalle | Händlerpreise & Portfolio</title>
+    <title>T&T Edelmetalle | Aktuelle Preise & Portfolio Rechner</title>
     <meta name="description" content="Aktuelle Händlerpreise für Gold, Silber, Platin und Palladium. Portfolio-Management." />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -811,17 +811,7 @@
     </div>
 
     <script>
-        // =========================================================================
-        // Anpassungen: Mobile Nav fix
-        // - mobile-overlay + mobile-nav moved outside the nav to avoid stacking context issues
-        // - overlay uses opacity & pointer-events; body scrolling disabled while open
-        // - drawer width responsive (80vw / max 320px)
-        // - keyboard accessible (Escape closes), clones nav items into drawer
-        // - Passwortschutz entfernt (App zeigt sich direkt)
-        // - native selects optisch an dunkles Theme angepasst (best-effort)
-        // =========================================================================
 
-        // <-- Minimal change: make these mutable (let) so we can overwrite them from prices.json -->
         let DAILY_SPOT_EUR = { gold: 3625, silver: 60, platinum: 1650, palladium: 1300 };
         let LAST_UPDATE = "31.12.2025, 08:30 Uhr";
         const PREMIUMS = { gold_coin: 1, gold_bar: 1, silver_coin: 1, silver_bar: 1, plat_coin: 1, pall_coin: 1 };
@@ -899,8 +889,6 @@
             
             loadPricesThenInit();
         };
-
-        // removed checkPassword() and login overlay. App is directly visible.
 
         function switchView(viewId) { document.querySelectorAll('.hidden-section').forEach(el => el.style.display = 'none'); document.getElementById(viewId).style.display = 'block'; document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); if (viewId === 'dashboard') document.getElementById('nav-dash').classList.add('active'); if (viewId === 'calculator') document.getElementById('nav-calc').classList.add('active'); if (viewId === 'analysis') document.getElementById('nav-ana').classList.add('active'); closeMobileNav(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
@@ -1074,6 +1062,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
+
 
 
 
