@@ -737,7 +737,7 @@
                         <div style="margin-top:12px; border-top:1px solid var(--c-border); padding-top:14px; display:flex; gap:12px; align-items:center; justify-content:space-between;">
                             <div>
                                 <div class="input-label">Bewertungs-Basis</div>
-                                <div class="source-badge" style="background: rgba(255,255,255,0.02); border:1px solid rgba(197,160,89,0.08);">Händler-Ankauf (standard, ca. −5%)</div>
+                                <div class="source-badge" style="background: rgba(255,255,255,0.02); border:1px solid rgba(197,160,89,0.08);">Händler-Ankauf</div>
                             </div>
                             <button class="btn btn-primary" style="width:220px; margin-left:8px;" onclick="addToPortfolio()">Zur Liste hinzufügen</button>
                         </div>
@@ -745,7 +745,7 @@
 
                     <div class="card" style="display:flex; flex-direction:column;">
                         <div class="card-header">
-                            <div class="card-title"><i class="fa-solid fa-vault"></i> Mein Portfolio</div>
+                            <div class="card-title">Mein Portfolio</div>
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <div id="port-count" style="font-size:0.9rem; color:var(--c-text-muted);">0 Positionen</div>
                                 <button class="btn btn-outline btn-sm" onclick="exportPortfolioPDF()">Export PDF</button>
@@ -759,7 +759,7 @@
                         <div style="background: rgba(197, 160, 89, 0.08); padding: 14px; border-radius: var(--radius-md); border: 1px solid rgba(197, 160, 89, 0.12); text-align: right;">
                             <div class="sub-price">Gesamtwert Portfolio</div>
                             <div class="big-price" id="total-value">0,00 €</div>
-                            <div class="sub-price" style="margin-top:6px; font-size:0.75rem;">Basierend auf hinterlegten Tagespreisen (Händler-Ankauf)</div>
+                            <div class="sub-price" style="margin-top:6px; font-size:0.75rem;">(Händlerpreise können variieren)</div>
                         </div>
                     </div>
                 </div>
@@ -1068,6 +1068,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
+
 
 
 
