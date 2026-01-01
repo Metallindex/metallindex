@@ -312,7 +312,8 @@
                 padding: 10px 12px;
                 border-radius: 6px;
                 cursor: pointer;
-                color: var(--c-text-muted)
+                color: var(--c-text-main);
+                background: transparent;
             }
 
                 .custom-select-list li:hover, .custom-select-list li[aria-selected="true"] {
@@ -512,31 +513,50 @@
             gap: 12px;
             grid-template-columns: 1fr 1fr
         }
+
+        /* -------------------------
+           Darken native select dropdowns
+           (best-effort; some OS/browsers keep native UI)
+           ------------------------- */
+        select.form-control {
+            background: var(--c-bg-card);
+            color: var(--c-text-main);
+            -webkit-appearance: none;
+            appearance: none;
+            border: 1px solid var(--c-border);
+            padding-right: 28px; /* space for custom caret if desired */
+        }
+
+            select.form-control option {
+                background: var(--c-bg-card);
+                color: var(--c-text-main);
+            }
+            /* hide default IE/Edge arrow */
+            select.form-control::-ms-expand {
+                display: none;
+            }
+
+        /* add a subtle caret for selects inside containers */
+        .select-inline {
+            position: relative;
+        }
+
+            .select-inline:after {
+                content: "\f0d7";
+                font-family: "Font Awesome 6 Free";
+                font-weight: 900;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+                color: var(--c-text-muted);
+            }
     </style>
 </head>
 <body>
 
-    <div id="login-overlay">
-        <div class="login-card card" role="dialog" aria-labelledby="appTitle" aria-modal="true">
-            <div style="display:flex; align-items:center; gap:12px; justify-content:center; flex-direction:column">
-                <i class="fa-solid fa-layer-group" style="font-size:3rem; color: var(--c-primary);"></i>
-                <h2 id="appTitle" style="margin:6px 0 0 0;">Metallindex</h2>
-                <p class="text-muted" style="margin:4px 0 14px 0;">Institutional Access</p>
-            </div>
-
-            <div style="text-align:left; width:100%;">
-                <label class="input-label">Zugangscode</label>
-                <input type="password" id="passwordInput" class="form-control" placeholder="••••••••" onkeydown="if(event.key === 'Enter') checkPassword()" aria-label="Zugangscode">
-            </div>
-
-            <button class="btn btn-primary" style="width:100%; margin-top:12px;" onclick="checkPassword()" aria-label="Login">
-                Login <i class="fa-solid fa-arrow-right"></i>
-            </button>
-            <p id="loginError" style="color: var(--c-danger); margin-top: 14px; display: none;">Zugriff verweigert.</p>
-        </div>
-    </div>
-
-    <div id="main-app" style="display:none;">
+    <div id="main-app" style="display:block;">
 
         <nav class="navbar" role="navigation" aria-label="Hauptnavigation">
             <div class="nav-inner">
@@ -697,7 +717,7 @@
 
                         <div id="mode-raw" style="display:none;">
                             <label class="input-label">Metall</label>
-                            <select id="raw-metal" class="form-control">
+                            <select id="raw-metal" class="form-control select-inline">
                                 <option value="gold">Gold</option>
                                 <option value="silver">Silber</option>
                                 <option value="platinum">Platin</option>
@@ -706,7 +726,7 @@
                             <label class="input-label">Gewicht (Gramm)</label>
                             <input type="number" id="raw-weight" class="form-control" placeholder="z.B. 31.1">
                             <label class="input-label">Feinheit</label>
-                            <select id="raw-purity" class="form-control">
+                            <select id="raw-purity" class="form-control select-inline">
                                 <option value="0.999">999 (Fein)</option>
                                 <option value="0.916">916 (22k)</option>
                                 <option value="0.750">750 (18k)</option>
@@ -759,7 +779,7 @@
                 <div style="display:flex; gap:10px; align-items:center;"><i class="fa-solid fa-layer-group" style="color:var(--c-primary);"></i> Metallindex Group</div>
                 <div style="max-width:1000px; text-align:center; color:var(--c-text-muted); font-size:0.9rem;">
                     &copy; 2025. Alle Rechte vorbehalten.<br>
-                    Die angezeigten Preise sind indikative Händlerpreise basierend auf manuellen Tageswerten.
+                    Die angezeigten Preise sind indikative Händlerpreise basierend auf Tageswerten.
                 </div>
 
                 <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px;">
@@ -789,6 +809,8 @@
         // - overlay uses opacity & pointer-events; body scrolling disabled while open
         // - drawer width responsive (80vw / max 320px)
         // - keyboard accessible (Escape closes), clones nav items into drawer
+        // - Passwortschutz entfernt (App zeigt sich direkt)
+        // - native selects optisch an dunkles Theme angepasst (best-effort)
         // =========================================================================
 
         const DAILY_SPOT_EUR = { gold: 3625, silver: 60, platinum: 1650, palladium: 1300 };
@@ -827,9 +849,11 @@
 
         window.onload = function () {
             initCustomSelect(); populateCatalog('all'); renderPrices(); renderCoinComparison(); renderPortfolio(); buildMobileNav(); responsiveInit(); initMobileOverlay();
+            // ensure default view shown
+            document.getElementById('main-app').style.display = 'block';
         };
 
-        function checkPassword() { if (document.getElementById('passwordInput').value === "Magnetar9!") { document.getElementById('login-overlay').style.display = 'none'; document.getElementById('main-app').style.display = 'block'; renderPrices(); } else { const err = document.getElementById('loginError'); err.style.display = 'block'; err.classList.add('fade-in'); } }
+        // removed checkPassword() and login overlay. App is directly visible.
 
         function switchView(viewId) { document.querySelectorAll('.hidden-section').forEach(el => el.style.display = 'none'); document.getElementById(viewId).style.display = 'block'; document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); if (viewId === 'dashboard') document.getElementById('nav-dash').classList.add('active'); if (viewId === 'calculator') document.getElementById('nav-calc').classList.add('active'); if (viewId === 'analysis') document.getElementById('nav-ana').classList.add('active'); closeMobileNav(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
@@ -894,7 +918,7 @@
         function responsiveInit() { buildMobileNav(); function adjustCharts() { const tvs = document.querySelectorAll('.tradingview-widget-container'); tvs.forEach(el => { if (window.innerWidth < 700) el.style.minHeight = '220px'; else if (window.innerWidth < 1100) el.style.minHeight = '360px'; else el.style.minHeight = '540px'; }); } adjustCharts(); window.addEventListener('resize', adjustCharts); }
 
         // LEGAL modal
-        function openLegal(type) { const overlay = document.getElementById('legal-overlay'); const title = document.getElementById('legal-title'); const content = document.getElementById('legal-content'); overlay.style.display = 'flex'; if (type === 'impressum') { title.innerText = 'Impressum'; content.innerHTML = `<strong>Metallindex Group</strong><br>Beispielstraße 1<br>10115 Berlin<br>Telefon: +49 30 1234567<br>E-Mail: info@metallindex.example<br>Geschäftsführer: Max Mustermann<br>Handelsregister: HRB 12345, Amtsgericht Berlin`; } else { title.innerText = 'Haftungsausschluss'; content.innerHTML = `<strong>Haftungsausschluss / Disclaimer</strong><br><br>Die Informationen auf dieser Webseite dienen ausschließlich Informationszwecken und stellen weder ein Angebot noch eine Anlageberatung dar. Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Gewähr für die Aktualität, Richtigkeit, Vollständigkeit oder Qualität der bereitgestellten Informationen. <br><br>Insbesondere sind die dargestellten Preise indikativ und können Abweichungen gegenüber realen Händlerspreisen aufweisen. Entscheidungen, die Sie auf Grundlage der Inhalte dieser Seite treffen, liegen in Ihrer Verantwortung. Wir haften nicht für unmittelbare oder mittelbare Schäden, die aus der Nutzung dieser Informationen entstehen, außer in Fällen von Vorsatz oder grober Fahrlässigkeit.<br><br>Externe Links: Für den Inhalt verlinkter externer Seiten sind ausschließlich deren Betreiber verantwortlich.`; } }
+        function openLegal(type) { const overlay = document.getElementById('legal-overlay'); const title = document.getElementById('legal-title'); const content = document.getElementById('legal-content'); overlay.style.display = 'flex'; if (type === 'impressum') { title.innerText = 'Impressum'; content.innerHTML = `<strong>Metallindex Group</strong><br>Österreich<br>Marchegg<br>Telefon: -------------- <br>E-Mail: business.metallindex@gmail.com<br>Betreiber: Tobias T.`; } else { title.innerText = 'Haftungsausschluss'; content.innerHTML = `<strong>Haftungsausschluss / Disclaimer</strong><br><br>Die Informationen auf dieser Webseite dienen ausschließlich Informationszwecken und stellen weder ein Angebot noch eine Anlageberatung dar. Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Gewähr für die Aktualität, Richtigkeit, Vollständigkeit oder Qualität der bereitgestellten Informationen. <br><br>Insbesondere sind die dargestellten Preise indikativ und können Abweichungen gegenüber konkreten Händlerspreisen aufweisen. Entscheidungen, die Sie auf Grundlage der Inhalte dieser Seite treffen, liegen in Ihrer Verantwortung. Wir haften nicht für unmittelbare oder mittelbare Schäden, die aus der Nutzung dieser Informationen entstehen.`; } }
         function closeLegal() { document.getElementById('legal-overlay').style.display = 'none'; }
 
         // =========================================================================
@@ -964,7 +988,7 @@
             y += 8;
             doc.setFont(undefined, 'bold');
             const totalValueText = document.getElementById('total-value').innerText || formatMoney(0);
-            doc.text('Gesamtwert Portfolio: ' + totalValueText, margin, y);
+            doc.text('Gesamtwert: ' + totalValueText, margin, y);
 
             const filename = 'Metallindex_Portfolio_' + (new Date()).toISOString().slice(0, 10) + '.pdf';
             doc.save(filename);
