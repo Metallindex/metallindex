@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T&T Edelmetalle | Portfolio Rechner</title>
+    <meta name="description" content="Kostenloses Tool zur Berechnung und Verwaltung Ihres Edelmetallbestandes (Gold, Silber, etc.)." />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="main-app">
+        <nav class="navbar" role="navigation" aria-label="Hauptnavigation">
+            <div class="nav-inner">
+                <a href="index.html" class="brand-logo"><i class="fa-solid fa-layer-group"></i><span>T&T</span>Edelmetalle</a>
+                <button id="hamburger" class="btn btn-outline" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="markt.html" class="nav-item">Marktübersicht</a>
+                    <a href="rechner.html" class="nav-item active">Portfolio Rechner</a>
+                    <a href="wissen.html" class="nav-item">Wissenswertes</a>
+                </div>
+            </div>
+        </nav>
+
+        <div id="mobile-overlay"></div>
+        <div id="mobile-nav"></div>
+
+        <main class="container" style="padding-top:20px; padding-bottom:50px;">
+            <div class="grid-dashboard" style="align-items:start">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" style="margin:0; font-size:1rem;">Bestand erweitern</h2>
+                        <button class="btn btn-outline btn-sm" onclick="clearPortfolio()">Reset</button>
+                    </div>
+                    <div class="calc-tabs" style="display:flex; gap:10px; margin-bottom:16px; background:transparent; padding:6px; border-radius:8px">
+                        <div class="calc-tab btn btn-sm active" id="tab-cat" onclick="toggleCalcMode('catalog')" role="button" tabindex="0" style="background:var(--c-bg-card); color:var(--c-primary);">Katalog Auswahl</div>
+                        <div class="calc-tab btn btn-sm" id="tab-raw" onclick="toggleCalcMode('raw')" role="button" tabindex="0">Manuell (Gramm)</div>
+                    </div>
+
+                    <div id="mode-catalog">
+                        <label class="input-label">Metallart filtern</label>
+                        <div style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
+                            <button class="btn btn-sm btn-outline" onclick="filterCatalog('all')">Alle</button>
+                            <button class="btn btn-sm btn-outline" onclick="filterCatalog('gold')" style="color:var(--color-gold); border-color:var(--color-gold);">Au</button>
+                            <button class="btn btn-sm btn-outline" onclick="filterCatalog('silver')" style="color:var(--color-silver); border-color:var(--color-silver);">Ag</button>
+                            <button class="btn btn-sm btn-outline" onclick="filterCatalog('platinum')" style="color:var(--color-plat); border-color:var(--color-plat);">Pt</button>
+                            <button class="btn btn-sm btn-outline" onclick="filterCatalog('palladium')" style="color:var(--color-pall); border-color:var(--color-pall);">Pd</button>
+                        </div>
+                        <label class="input-label">Produkt wählen</label>
+                        <div class="select-wrapper">
+                            <button id="catalogToggle" class="select-toggle" aria-haspopup="listbox" aria-expanded="false">Wähle ein Produkt <i class="fa-solid fa-caret-down"></i></button>
+                            <ul id="catalogList" class="custom-select-list" role="listbox" aria-labelledby="catalogToggle" hidden></ul>
+                            <select id="catalogSelect" class="form-control visually-hidden" aria-hidden="true"></select>
+                        </div>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <div style="flex:1;">
+                                <label class="input-label">Anzahl</label>
+                                <input type="number" id="cat-qty" class="form-control" value="1" min="1">
+                            </div>
+                            <div style="flex:1;">
+                                <label class="input-label">Einzelpreis (Est.)</label>
+                                <input type="text" id="cat-price-display" class="form-control" disabled style="opacity:0.95; color:var(--c-primary);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="mode-raw" style="display:none;">
+                        <label class="input-label">Metall</label>
+                        <select id="raw-metal" class="form-control select-inline">
+                            <option value="gold">Gold</option>
+                            <option value="silver">Silber</option>
+                            <option value="platinum">Platin</option>
+                            <option value="palladium">Palladium</option>
+                        </select>
+                        <label class="input-label">Gewicht (Gramm)</label>
+                        <input type="number" id="raw-weight" class="form-control" placeholder="z.B. 31.1">
+                        <label class="input-label">Feinheit</label>
+                        <select id="raw-purity" class="form-control select-inline">
+                            <option value="0.999">999 (Fein)</option>
+                            <option value="0.916">916 (22k)</option>
+                            <option value="0.750">750 (18k)</option>
+                            <option value="0.585">585 (14k)</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top:12px; border-top:1px solid var(--c-border); padding-top:14px; display:flex; gap:12px; align-items:center; justify-content:space-between;">
+                        <div>
+                            <div class="input-label">Bewertungs-Basis</div>
+                            <div class="source-badge" style="background: rgba(255,255,255,0.02); border:1px solid rgba(197,160,89,0.08);">Händler-Ankauf</div>
+                        </div>
+                        <button class="btn btn-primary add-btn-hook" style="width:220px; margin-left:8px;" onclick="addToPortfolio()">Zur Liste hinzufügen</button>
+                    </div>
+                </div>
+
+                <div class="card" style="display:flex; flex-direction:column;">
+                    <div class="card-header">
+                        <h2 class="card-title" style="margin:0; font-size:1rem;">Mein Portfolio</h2>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div id="port-count" style="font-size:0.9rem; color:var(--c-text-muted);">0 Positionen</div>
+                            <button class="btn btn-outline btn-sm" onclick="exportPortfolioPDF()">Export PDF</button>
+                        </div>
+                    </div>
+
+                    <div id="portfolio-container" style="flex-grow:1; margin-bottom: 20px; max-height:420px; overflow-y:auto;">
+                        <p style="text-align:center; color: var(--c-text-muted); padding-top: 40px;">Lade Portfolio...</p>
+                    </div>
+
+                    <div style="background: rgba(197, 160, 89, 0.08); padding: 14px; border-radius: var(--radius-md); border: 1px solid rgba(197, 160, 89, 0.12); text-align: right;">
+                        <div class="sub-price">Gesamtwert Portfolio</div>
+                        <div class="big-price" id="total-value">0,00 €</div>
+                        <div class="sub-price" style="margin-top:6px; font-size:0.75rem;">(Händlerpreise können variieren)</div>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="card" style="background: linear-gradient(180deg, var(--c-bg-card) 0%, rgba(197, 160, 89, 0.03) 100%); margin-top:20px;">
+                <div class="card-header"><h3 class="card-title">Hinweis</h3></div>
+                <p style="color:var(--c-text-muted); line-height:1.6; font-size:0.95rem; margin-top:0;">
+                    Die Daten werden ausschließlich lokal in Ihrem Browser gespeichert. Wenn Sie den Cache leeren, gehen diese Daten verloren. Nutzen Sie den PDF-Export zur Sicherung.
+                </p>
+            </div>
+        </main>
+        
+        <footer>
+             <div class="container" style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+                <div style="max-width:1000px; text-align:center; color:var(--c-text-muted); font-size:0.9rem;">&copy; 2025. Alle Rechte vorbehalten.</div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px;">
+                    <button class="btn btn-outline btn-sm" onclick="openLegal('impressum')">Impressum</button>
+                    <button class="btn btn-outline btn-sm" onclick="openLegal('haftung')">Haftungsausschluss</button>
+                    <button class="btn btn-outline btn-sm" onclick="openLegal('datenschutz')">Datenschutz</button>
+                </div>
+            </div>
+        </footer>
+
+        <div id="legal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:900; align-items:center; justify-content:center; padding:16px;">
+            <div id="legal-modal" style="max-width:900px; width:100%; max-height:85vh; overflow:auto; background:var(--c-bg-card); border:1px solid var(--c-border); border-radius:12px; padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                    <h3 id="legal-title">Rechtliches</h3>
+                    <button class="btn btn-outline" onclick="closeLegal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="legal-content" style="margin-top:12px; color:var(--c-text-muted); line-height:1.45;"></div>
+            </div>
+        </div>
+        
+        <div id="consent-overlay" style="display:none;">
+             <div id="consent-banner">
+                <div class="consent-text"><div style="font-weight:700; color:var(--c-text-main);">Drittanbieter</div><div class="consent-small">Zustimmung erforderlich.</div></div>
+                <div class="consent-actions"><button class="btn btn-outline btn-sm" onclick="declineConsent()">Ablehnen</button><button class="btn btn-primary btn-sm" onclick="acceptConsent()">Akzeptieren</button></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
