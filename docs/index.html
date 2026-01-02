@@ -600,6 +600,58 @@
                 pointer-events: none;
                 color: var(--c-text-muted);
             }
+
+        /* Consent banner styles */
+        #consent-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            pointer-events: auto;
+            background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.35));
+        }
+        #consent-banner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 24px;
+            background: linear-gradient(180deg, rgba(18,24,36,0.98), rgba(18,24,36,0.98));
+            border: 1px solid rgba(197,160,89,0.08);
+            color: var(--c-text-main);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+        }
+        #consent-banner .consent-text {
+            flex: 1;
+            font-size: 0.95rem;
+            color: var(--c-text-muted);
+            line-height: 1.4;
+        }
+        #consent-banner .consent-actions {
+            display:flex;
+            gap:10px;
+            align-items:center;
+        }
+        #consent-banner a {
+            color: var(--c-primary);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .consent-small {
+            font-size:0.82rem;
+            color:var(--c-text-muted);
+        }
+
+        @media(max-width:600px) {
+            #consent-banner { flex-direction: column; align-items: stretch; }
+            #consent-banner .consent-actions { justify-content: flex-end; }
+        }
+
     </style>
 </head>
 <body>
@@ -964,7 +1016,91 @@
 
     </div>
 
+    <!-- Consent overlay (blocks interactions until user accepts/declines) -->
+    <div id="consent-overlay" style="display:none;">
+        <div id="consent-banner" role="dialog" aria-modal="true" aria-label="Cookie-Einwilligung">
+            <div class="consent-text">
+                <div style="font-weight:700; color:var(--c-text-main); margin-bottom:6px;">Wir verwenden Drittanbieter-Inhalte</div>
+                <div class="consent-small">
+                    Diese Website nutzt externe Dienste (z. B. TradingView Widgets, Schriftarten & CDNs). Durch Klick auf <strong>„Akzeptieren“</strong> stimmen Sie der Nutzung dieser Drittanbieter-Inhalte zu.
+                    Der Portfolio-Rechner selbst arbeitet lokal in Ihrem Browser und speichert Ihre Eingaben nicht auf unserem Server.
+                </div>
+                <div style="margin-top:8px;">
+                    <a onclick="openLegal('datenschutz')">Mehr erfahren / Datenschutz</a>
+                </div>
+            </div>
+            <div class="consent-actions">
+                <button class="btn btn-outline btn-sm" onclick="declineConsent()">Ablehnen</button>
+                <button class="btn btn-primary btn-sm" onclick="acceptConsent()">Akzeptieren</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+
+        /* -------- Consent management --------
+           - Shows a full-page overlay/banner on first visit (or until a choice is made)
+           - Stores user choice in localStorage under key 'tt_consent' with values 'accepted' | 'declined'
+           - Blocks interactions (page is visible but overlay prevents clicks/keyboard)
+           - "Mehr erfahren" opens the Datenschutz-Modal
+        -------------------------------------- */
+
+        function getConsent() {
+            try {
+                return localStorage.getItem('tt_consent');
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function setConsent(value) {
+            try { localStorage.setItem('tt_consent', value); } catch (e) { /* ignore */ }
+        }
+
+        function showConsentBanner() {
+            const overlay = document.getElementById('consent-overlay');
+            if (!overlay) return;
+            overlay.style.display = 'flex';
+            document.body.classList.add('no-scroll');
+            // focus management for accessibility
+            setTimeout(() => {
+                const btn = overlay.querySelector('button.btn-primary');
+                if (btn) btn.focus();
+            }, 120);
+        }
+
+        function hideConsentBanner() {
+            const overlay = document.getElementById('consent-overlay');
+            if (!overlay) return;
+            overlay.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
+
+        function acceptConsent() {
+            setConsent('accepted');
+            hideConsentBanner();
+            // you might trigger any consent-dependent logic here
+            // currently the app is initialized on window.onload and will continue to work
+        }
+
+        function declineConsent() {
+            setConsent('declined');
+            hideConsentBanner();
+            // we show the app but user declined third-party content; note: page resources may already have loaded
+            // the user can still use local features (portfolio) — no server-side data is collected by the app itself
+        }
+
+        // on first load, if consent not yet given, block UI with banner
+        (function initConsentState() {
+            const current = getConsent();
+            if (!current) {
+                // show banner so user must make a choice (or can continue after declining)
+                showConsentBanner();
+            } else {
+                // already decided -> nothing to do
+            }
+        })();
+
 
         let DAILY_SPOT_EUR = { gold: 3625, silver: 60, platinum: 1650, palladium: 1300 };
         let LAST_UPDATE = "31.12.2025, 08:30 Uhr";
@@ -1140,126 +1276,136 @@
         function responsiveInit() { buildMobileNav(); function adjustCharts() { const tvs = document.querySelectorAll('.tradingview-widget-container'); tvs.forEach(el => { if (window.innerWidth < 700) el.style.minHeight = '220px'; else if (window.innerWidth < 1100) el.style.minHeight = '360px'; else el.style.minHeight = '540px'; }); } adjustCharts(); window.addEventListener('resize', adjustCharts);
         }
 
-<script>
-function openLegal(type) {
-    const overlay = document.getElementById('legal-overlay');
-    const title = document.getElementById('legal-title');
-    const content = document.getElementById('legal-content');
+        function openLegal(type) {
+            const overlay = document.getElementById('legal-overlay');
+            const title = document.getElementById('legal-title');
+            const content = document.getElementById('legal-content');
 
-    let html = '';
-    let headline = '';
+            let html = '';
+            let headline = '';
 
-    if (type === 'impressum') {
-        headline = 'Impressum';
-        html = `
-        <p><strong>Angaben gemäß § 5 TMG</strong></p>
-        <p>
-        T&T Edelmetalle<br>
-        [Dein Name / Firma]<br>
-        [Straße, Hausnummer]<br>
-        [PLZ Ort]<br>
-        Deutschland
-        </p>
-        <p>
-        <strong>Kontakt</strong><br>
-        E-Mail: [deine@email.de]
-        </p>
-        `;
-    }
+            if (type === 'impressum') {
+                headline = 'Impressum';
+                html = `
+                <p><strong>Angaben gemäß § 5 TMG</strong></p>
+                <p>
+                T&T Edelmetalle<br>
+                [Dein Name / Firma]<br>
+                [Straße, Hausnummer]<br>
+                [PLZ Ort]<br>
+                [Land]
+                </p>
+                <p>
+                <strong>Kontakt</strong><br>
+                E-Mail: [deine@email.de]
+                </p>
+                <p class="consent-small" style="margin-top:8px; color:var(--c-text-muted);">
+                Bitte ersetzen Sie die eckigen Platzhalter durch Ihre tatsächlichen Angaben, damit das Impressum vollständig ist.
+                </p>
+                `;
+            }
 
-    if (type === 'haftung') {
-        headline = 'Haftungsausschluss';
-        html = `
-        <p>
-        Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
-        Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
-        </p>
-        <p>
-        Die dargestellten Preise stellen keine verbindlichen Angebote dar und dienen ausschließlich Informationszwecken.
-        </p>
-        `;
-    }
+            if (type === 'haftung') {
+                headline = 'Haftungsausschluss';
+                html = `
+                <p>
+                Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
+                Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
+                </p>
+                <p>
+                Die dargestellten Preise stellen keine verbindlichen Angebote dar und dienen ausschließlich Informationszwecken.
+                </p>
+                <p>
+                Entscheidungen, die Sie auf Grundlage der Inhalte dieser Seite treffen, liegen in Ihrer Verantwortung.
+                Wir haften nicht für unmittelbare oder mittelbare Schäden, die aus der Nutzung dieser Informationen entstehen.
+                </p>
+                `;
+            }
 
-    if (type === 'datenschutz') {
-        headline = 'Datenschutzerklärung';
-        html = `
-        <p><strong>1. Allgemeine Hinweise</strong></p>
-        <p>
-        Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen.
-        Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften
-        sowie dieser Datenschutzerklärung.
-        </p>
+            if (type === 'datenschutz') {
+                headline = 'Datenschutzerklärung';
+                html = `
+                <p><strong>1. Allgemeine Hinweise</strong></p>
+                <p>
+                Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen.
+                Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften
+                sowie dieser Datenschutzerklärung.
+                </p>
 
-        <p><strong>2. Verantwortlicher</strong></p>
-        <p>
-        Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
-        T&T Edelmetalle<br>
-        [Name / Firma]<br>
-        [Adresse]<br>
-        E-Mail: [deine@email.de]
-        </p>
+                <p><strong>2. Verantwortlicher</strong></p>
+                <p>
+                Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
+                T&T Edelmetalle<br>
+                [Name / Firma]<br>
+                [Adresse]<br>
+                E-Mail: [deine@email.de]
+                </p>
 
-        <p><strong>3. Erhebung und Speicherung personenbezogener Daten</strong></p>
-        <p>
-        Diese Website kann grundsätzlich ohne Angabe personenbezogener Daten genutzt werden.
-        Es werden <strong>keine Benutzerkonten</strong> und <strong>keine personenbezogenen Eingaben</strong> gespeichert.
-        </p>
+                <p><strong>3. Erhebung und Speicherung personenbezogener Daten</strong></p>
+                <p>
+                Diese Website kann grundsätzlich ohne Angabe personenbezogener Daten genutzt werden.
+                Es werden <strong>keine Benutzerkonten</strong> und <strong>keine personenbezogenen Eingaben</strong> dauerhaft auf unseren Servern gespeichert.
+                Formulare (z. B. Kontaktformular) werden nur dann verarbeitet, wenn Sie diese aktiv absenden.
+                </p>
 
-        <p><strong>4. Portfolio-Rechner</strong></p>
-        <p>
-        Alle Eingaben im Portfolio-Rechner erfolgen ausschließlich lokal im Browser.
-        Es findet <strong>keine Übertragung, Speicherung oder Auswertung auf Servern</strong> statt.
-        </p>
+                <p><strong>4. Portfolio-Rechner</strong></p>
+                <p>
+                Alle Eingaben im Portfolio-Rechner erfolgen ausschließlich lokal im Browser (LocalStorage wird NICHT verwendet für Portfolio-Daten).
+                Es findet <strong>keine Übertragung, Speicherung oder Auswertung auf unseren Servern</strong> statt, sofern Sie nicht explizit etwas exportieren (z. B. PDF).
+                </p>
 
-        <p><strong>5. Externe Inhalte & Drittanbieter</strong></p>
-        <p>
-        Diese Website bindet externe Inhalte ein:
-        </p>
-        <ul>
-            <li><strong>TradingView Widgets</strong> (Marktdaten & Charts)</li>
-            <li><strong>Google Fonts</strong></li>
-            <li><strong>Font Awesome</strong></li>
-            <li><strong>CDNJS</strong></li>
-        </ul>
-        <p>
-        Beim Laden dieser Inhalte kann Ihre IP-Adresse an die jeweiligen Anbieter übermittelt werden.
-        Die Nutzung erfolgt im berechtigten Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO.
-        </p>
+                <p><strong>5. Externe Inhalte & Drittanbieter</strong></p>
+                <p>
+                Auf dieser Website werden externe Dienste eingebunden, die Drittanbieter-Inhalte bereitstellen können:
+                </p>
+                <ul>
+                    <li><strong>TradingView Widgets:</strong> Zur Anzeige von Charts und Ticker-Tape. Beim Laden werden Verbindungen zu den Servern von TradingView aufgebaut.</li>
+                    <li><strong>Google Fonts:</strong> Für Schriftarten (fonts.googleapis.com, fonts.gstatic.com).</li>
+                    <li><strong>Font Awesome / CDNJS:</strong> Icon- und Script-Hosting.</li>
+                </ul>
+                <p>
+                Beim Laden dieser Inhalte können Daten (z. B. Ihre IP-Adresse, angefragte URL) an die jeweiligen Drittanbieter übermittelt werden.
+                Die Nutzung dieser Drittanbieter erfolgt auf Grundlage unseres berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO). Wenn Sie damit nicht einverstanden sind, können Sie die Nutzung der Drittanbieter über die Cookie-/Einwilligungsfunktion ablehnen.
+                </p>
 
-        <p><strong>6. Cookies & Tracking</strong></p>
-        <p>
-        Diese Website verwendet <strong>keine Cookies</strong>, kein Tracking und keine Analyse-Tools.
-        </p>
+                <p><strong>6. Cookies & Tracking</strong></p>
+                <p>
+                Diese Website verwendet nach aktuellem Stand <strong>keine Tracking-Cookies</strong> und keine Analyse-Tools.
+                Die sichtbare Cookie-/Einwilligungs-Meldung dient der Transparenz gegenüber eingebundenen Drittinhalten.
+                </p>
 
-        <p><strong>7. Server-Logfiles</strong></p>
-        <p>
-        Der Hosting-Provider kann automatisch Informationen in sogenannten Server-Logfiles erheben.
-        Dies sind z.B. Browsertyp, Betriebssystem oder Uhrzeit der Anfrage.
-        Diese Daten sind nicht bestimmten Personen zuordenbar.
-        </p>
+                <p><strong>7. Server-Logfiles</strong></p>
+                <p>
+                Technische Informationen wie Browsertyp, Betriebssystem oder Uhrzeit der Anfrage werden möglicherweise vom Hosting-Provider in Server-Logfiles protokolliert. Diese Daten sind nicht einzelnen Personen zuordenbar und dienen der Sicherheit und dem Betrieb des Dienstes.
+                </p>
 
-        <p><strong>8. Ihre Rechte</strong></p>
-        <p>
-        Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung oder Einschränkung der Verarbeitung
-        Ihrer personenbezogenen Daten sowie ein Beschwerderecht bei der zuständigen Aufsichtsbehörde.
-        </p>
+                <p><strong>8. Ihre Rechte</strong></p>
+                <p>
+                Sie haben das Recht auf Auskunft über die zu Ihrer Person gespeicherten Daten, auf Berichtigung, Löschung, Einschränkung der Verarbeitung sowie das Recht auf Datenübertragbarkeit.
+                Zudem haben Sie ein Beschwerderecht bei der zuständigen Datenschutzaufsicht.
+                </p>
 
-        <p><strong>9. Aktualität</strong></p>
-        <p>
-        Diese Datenschutzerklärung hat den Stand: Januar 2026
-        </p>
-        `;
-    }
+                <p><strong>9. Aktualität</strong></p>
+                <p>
+                Diese Datenschutzerklärung hat den Stand: Januar 2026
+                </p>
 
-    title.innerText = headline;
-    content.innerHTML = html;
-    overlay.style.display = 'flex';
-}
+                <p class="consent-small" style="margin-top:8px; color:var(--c-text-muted);">
+                Hinweis: Ersetzen Sie bitte die Platzhalter [Name / Firma], [Adresse], [deine@email.de] durch Ihre tatsächlichen Kontaktdaten.
+                </p>
+                `;
+            }
 
-function closeLegal() {
-    document.getElementById('legal-overlay').style.display = 'none';
-}
+            title.innerText = headline;
+            content.innerHTML = html;
+            overlay.style.display = 'flex';
+            document.body.classList.add('no-scroll');
+        }
 
+        function closeLegal() {
+            document.getElementById('legal-overlay').style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
 
         function exportPortfolioPDF() {
             if (!portfolio || portfolio.length === 0) { alert('Das Portfolio ist leer. Bitte fügen Sie zuerst Positionen hinzu.');
@@ -1348,17 +1494,9 @@ function closeLegal() {
             } else {
                 doc.save(filename);
             }
-}
+        }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
