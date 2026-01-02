@@ -1,140 +1,61 @@
 <!doctype html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <title>T&T Edelmetalle | Gold & Silber Portfolio Rechner & Aktuelle Kurse</title>
-    <meta name="description" content="Aktuelle Händlerpreise und Spot-Kurse für Gold, Silber, Platin und Palladium. Kostenloser Portfolio-Rechner für Ihre Edelmetalle mit Exportfunktion." />
-    <meta name="keywords" content="Goldpreis, Silberpreis, Edelmetalle Portfolio, Gold Rechner, Platin Kurs, Palladium, Ankaufsrechner, Wertentwicklung, Silber Rechner, Goldpreis Aktuell, Silberpreis Aktuell, Silber Preisentwicklung, Gold Preisentwicklung, Edelmetall Rechner" />
-    <meta name="robots" content="index, follow" />
-    
-    <link rel="canonical" href="https://deine-website-url.com/" />
-    <meta property="og:title" content="T&T Edelmetalle | Portfolio Rechner & Live Kurse" />
-    <meta property="og:description" content="Verwalten Sie Ihr Edelmetall-Portfolio und sehen Sie aktuelle Händlerpreise für Gold, Silber & Co." />
-    <meta property="og:image" content="https://deine-website-url.com/social-share-image.jpg" />
-    <meta property="og:url" content="https://deine-website-url.com/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="de_DE" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="T&T Edelmetalle Portfolio Manager" />
-    <meta name="twitter:description" content="Kostenloses Tool zur Berechnung und Verwaltung Ihres Edelmetallbestandes." />
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "T&T Edelmetalle Portfolio Rechner",
-      "url": "https://deine-website-url.com/",
-      "description": "Tool zur Berechnung von Edelmetall-Portfolios (Gold, Silber, Platin, Palladium) mit aktuellen Marktpreisen.",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "T&T Edelmetalle"
-      }
-    }
-    </script>
-
-    <!-- extern: FontAwesome + Google Fonts (display=swap reduziert FOIT/CLS) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
-
-    <meta name="theme-color" content="#070912">
-
-    <!-- kritisches Inline-CSS (Above-The-Fold) -->
-    <style>
-    :root {
-        --c-primary: #c5a059;
-        --c-primary-dark: #a38234;
-        --c-bg-app: #0b1120;
-        --c-bg-card: #121824;
-        --c-text-main: #f1f5f9;
-        --c-text-muted: #9aa7bb;
-        --c-border: #24313f;
-        --radius-md: 10px;
-    }
-
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#070912 0%,var(--c-bg-app)100%);color:var(--c-text-main)}
-    .container{max-width:1200px;margin:0 auto;padding:18px}
-    .navbar{display:flex;align-items:center;justify-content:space-between;height:72px;gap:12px}
-    .brand{font-weight:700;cursor:pointer}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T&T Edelmetalle — Portfolio Rechner</title>
+  <meta name="description" content="Kostenloser Edelmetall-Portfolio Rechner — Gold, Silber, Platin & Palladium. Schnell berechnen & exportieren." />
+  <link rel="canonical" href="https://deine-website-url.com/" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--c-primary:#c5a059;--c-bg:#0b1120;--text:#f1f5f9}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#070912 0%,var(--c-bg)100%);color:var(--text)}
+    .container{max-width:1100px;margin:0 auto;padding:28px}
     .hero{display:grid;gap:18px;padding:28px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);box-shadow:0 8px 30px rgba(0,0,0,0.45)}
-    .hero h1{margin:0;font-size:1.8rem}
-    .cta-large{display:inline-flex;align-items:center;justify-content:center;padding:16px 26px;border-radius:12px;background:linear-gradient(135deg,var(--c-primary),var(--c-primary-dark));color:#000;font-weight:800;text-decoration:none}
-    .ticker-reserve{height:46px}
-    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
-    /* Make sure nav links don't look like blue links before CSS loads */
-    .nav-link{color:inherit;text-decoration:none;padding:6px 10px;border-radius:8px}
-    </style>
-
-    <!-- Vollständiges CSS wird ausgelagert -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    .hero h1{margin:0;font-size:1.9rem}
+    .cta-large{display:inline-flex;align-items:center;justify-content:center;padding:16px 26px;border-radius:12px;background:linear-gradient(135deg,var(--c-primary),#a38234);color:#000;font-weight:800;text-decoration:none}
+    .nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+    .brand{font-weight:700;cursor:pointer}
+  </style>
 </head>
 <body>
-    <header class="navbar container" role="banner" aria-label="Hauptnavigation">
-        <div class="brand" onclick="location.href='index.html'">
-            <span style="color:var(--c-primary)">T&amp;T</span> Edelmetalle
-        </div>
-
-        <nav aria-label="Hauptmenü" class="nav-inner">
-            <div style="display:flex;gap:10px;align-items:center;">
-                <a class="nav-link" href="dashboard.html">Marktübersicht</a>
-                <a class="nav-link" href="calculator.html">Rechner</a>
-                <a class="nav-link" href="analysis.html">Wissenswertes</a>
-            </div>
-        </nav>
+  <div class="container">
+    <header class="nav" role="banner">
+      <div class="brand"><span style="color:var(--c-primary)">T&amp;T</span> Edelmetalle</div>
+      <nav aria-label="Hauptmenu">
+        <a style="color:var(--text); text-decoration:none; padding:8px 12px; border-radius:8px;" href="app.html">Zum Rechner</a>
+      </nav>
     </header>
 
-    <main class="container" role="main">
-        <div class="ticker-reserve" aria-hidden="true"></div>
+    <main role="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <h1 id="hero-title">Dein Edelmetall-Portfolio — schnell & zuverlässig bewerten</h1>
+          <p style="color:rgba(255,255,255,0.7); max-width:70ch; margin-top:8px">
+            Öffne jetzt den interaktiven Rechner für Gold, Silber, Platin & Palladium. Lokal im Browser, ohne Upload.
+          </p>
+        </div>
+        <div>
+          <a class="cta-large" href="app.html" role="button" id="hero-cta">Jetzt Rechner öffnen →</a>
+        </div>
+      </section>
 
-        <section class="hero" aria-labelledby="hero-title">
-            <div>
-                <h1 id="hero-title">Edelmetall-Portfolio in wenigen Klicks berechnen</h1>
-                <p style="color:var(--c-text-muted);margin-top:8px;max-width:70ch">
-                    Kostenlose Bewertung Ihrer Gold-, Silber-, Platin- und Palladiumbestände. Lokal im Browser — kein Upload nötig.
-                </p>
-            </div>
-            <div>
-                <a class="cta-large" href="calculator.html" id="hero-cta" role="button">Jetzt Rechner öffnen →</a>
-            </div>
-        </section>
-
-        <section style="margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
-            <article class="card">
-                <h2>Aktuelle Händler-Indikationen</h2>
-                <p class="sub">Schneller Überblick über Gold &amp; Silber Preise</p>
-                <div style="margin-top:10px;font-weight:700;color:var(--c-primary)" id="dash-gold">–</div>
-            </article>
-            <article class="card">
-                <h2>Portfolio Export</h2>
-                <p class="sub">PDF-Export direkt aus dem Browser</p>
-            </article>
-        </section>
+      <section style="margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+        <article style="background:linear-gradient(180deg,#0f1724,#0b1120);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+          <h2 style="margin:0 0 8px 0">Schnellstart</h2>
+          <p style="color:rgba(255,255,255,0.7);margin:0">Klicke auf "Jetzt Rechner öffnen" um zur App mit vollem Funktionsumfang zu gelangen.</p>
+        </article>
+        <article style="background:linear-gradient(180deg,#0f1724,#0b1120);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+          <h2 style="margin:0 0 8px 0">Export</h2>
+          <p style="color:rgba(255,255,255,0.7);margin:0">Portfolio als PDF exportieren — direkt im Browser.</p>
+        </article>
+      </section>
     </main>
 
-    <footer class="container" role="contentinfo" style="padding:28px 0">
-        <div style="color:var(--c-text-muted);font-size:0.9rem;text-align:center">
-            &copy; 2025 T&amp;T Edelmetalle — <a class="nav-link" href="dashboard.html">Marktübersicht</a> · <a class="nav-link" href="calculator.html">Rechner</a>
-        </div>
-    </footer>
-
-    <!-- App Script (komplett) -->
-    <script src="assets/js/app.js" defer></script>
+    <footer style="text-align:center;color:rgba(255,255,255,0.6);margin-top:36px">&copy; T&amp;T Edelmetalle</footer>
+  </div>
 </body>
 </html>
