@@ -117,13 +117,12 @@ function initMobileOverlay() {
 
 function buildMobileNav() {
     const mn = document.getElementById('mobile-nav');
-    const items = document.querySelectorAll('.nav-menu .nav-item'); // Changed selector
+    const items = document.querySelectorAll('.nav-menu .nav-item');
     if(!mn) return;
     mn.innerHTML = '';
     items.forEach(it => {
         const clone = it.cloneNode(true);
-        clone.classList.remove('active'); // Reset active state in drawer logic if needed, or keep it.
-        // Convert onclick to href navigation if not already a tag
+        clone.classList.remove('active');
         mn.appendChild(clone);
     });
 }
@@ -360,13 +359,95 @@ function openLegal(type) {
     const title = document.getElementById('legal-title');
     const content = document.getElementById('legal-content');
     
-    // ... (Legal text content remains identical to source, omitted here for brevity but included in original) ...
-    // Using placeholder for brevity in this response, assume original strings are here:
     let html = '';
     let headline = '';
-    if (type === 'impressum') { headline = 'Impressum'; html = '<p><strong>Angaben gemäß § 5 TMG</strong></p><p>T&T Edelmetalle<br>[Dein Name / Firma]<br>[Straße, Hausnummer]<br>[PLZ Ort]<br>[Land]</p><p><strong>Kontakt</strong><br>E-Mail: [deine@email.de]</p>'; }
-    if (type === 'haftung') { headline = 'Haftungsausschluss'; html = '<p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt...</p>'; }
-    if (type === 'datenschutz') { headline = 'Datenschutzerklärung'; html = '<p><strong>Datenschutz...</strong></p>'; }
+    
+    if (type === 'impressum') { 
+        headline = 'Impressum'; 
+        // Ich habe hier automatisch die Daten aus deiner Datenschutzerklärung übernommen, damit es einheitlich ist.
+        html = '<p><strong>Angaben gemäß § 5 TMG</strong></p><p>T&T Edelmetalle<br>Österreich<br>2293 marchegg<br>E-Mail: info.ttedelmetalle@gmail.com</p>'; 
+    }
+
+    if (type === 'haftung') { 
+        headline = 'Haftungsausschluss'; 
+        html = `
+        <p>
+        Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
+        Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
+        </p>
+        <p>
+        Die dargestellten Preise stellen keine verbindlichen Angebote dar und dienen ausschließlich Informationszwecken.
+        </p>
+        <p>
+        Entscheidungen, die Sie auf Grundlage der Inhalte dieser Seite treffen, liegen in Ihrer Verantwortung.
+        Wir haften nicht für unmittelbare oder mittelbare Schäden, die aus der Nutzung dieser Informationen entstehen.
+        </p>
+        `; 
+    }
+
+    if (type === 'datenschutz') { 
+        headline = 'Datenschutzerklärung'; 
+        html = `
+        <p><strong>1. Allgemeine Hinweise</strong></p>
+        <p>
+        Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen.
+        Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften
+        sowie dieser Datenschutzerklärung.
+        </p>
+
+        <p><strong>2. Verantwortlicher</strong></p>
+        <p>
+        Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
+        T&T Edelmetalle<br>
+        Österreich<br>
+        2293 marchegg<br>
+        E-Mail: info.ttedelmetalle@gmail.com
+        </p>
+
+        <p><strong>3. Erhebung und Speicherung personenbezogener Daten</strong></p>
+        <p>
+        Diese Website kann grundsätzlich ohne Angabe personenbezogener Daten genutzt werden.
+        Es werden <strong>keine Benutzerkonten</strong> und <strong>keine personenbezogenen Eingaben</strong> dauerhaft auf unseren Servern gespeichert.
+        Formulare (z. B. Kontaktformular) werden nur dann verarbeitet, wenn Sie diese aktiv absenden.
+        </p>
+
+        <p><strong>4. Portfolio-Rechner</strong></p>
+        <p>
+        Alle Eingaben im Portfolio-Rechner erfolgen ausschließlich lokal im Browser (LocalStorage wird NICHT verwendet für Portfolio-Daten).
+        Es findet <strong>keine Übertragung, Speicherung oder Auswertung auf unseren Servern</strong> statt, sofern Sie nicht explizit etwas exportieren (z. B. PDF).
+        </p>
+
+        <p><strong>5. Externe Inhalte & Drittanbieter</strong></p>
+        <p>
+        Auf dieser Website werden externe Dienste eingebunden, die Drittanbieter-Inhalte bereitstellen können:
+        </p>
+        <ul>
+            <li><strong>TradingView Widgets:</strong> Zur Anzeige von Charts und Ticker-Tape. Beim Laden werden Verbindungen zu den Servern von TradingView aufgebaut.</li>
+            <li><strong>Google Fonts:</strong> Für Schriftarten (fonts.googleapis.com, fonts.gstatic.com).</li>
+            <li><strong>Font Awesome / CDNJS:</strong> Icon- und Script-Hosting.</li>
+        </ul>
+        <p>
+        Beim Laden dieser Inhalte können Daten (z. B. Ihre IP-Adresse, angefragte URL) an die jeweiligen Drittanbieter übermittelt werden.
+        Die Nutzung dieser Drittanbieter erfolgt auf Grundlage unseres berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO). Wenn Sie damit nicht einverstanden sind, können Sie die Nutzung der Drittanbieter über die Cookie-/Einwilligungsfunktion ablehnen.
+        </p>
+
+        <p><strong>6. Cookies & Tracking</strong></p>
+        <p>
+        Diese Website verwendet nach aktuellem Stand <strong>keine Tracking-Cookies</strong> und keine Analyse-Tools.
+        Die sichtbare Cookie-/Einwilligungs-Meldung dient der Transparenz gegenüber eingebundenen Drittinhalten.
+        </p>
+
+        <p><strong>7. Server-Logfiles</strong></p>
+        <p>
+        Technische Informationen wie Browsertyp, Betriebssystem oder Uhrzeit der Anfrage werden möglicherweise vom Hosting-Provider in Server-Logfiles protokolliert. Diese Daten sind nicht einzelnen Personen zuordenbar und dienen der Sicherheit und dem Betrieb des Dienstes.
+        </p>
+
+        <p><strong>9. Aktualität</strong></p>
+        <p>
+        Diese Datenschutzerklärung hat den Stand: Januar 2026
+        </p>
+        `;
+    }
 
     title.innerText = headline;
     content.innerHTML = html;
