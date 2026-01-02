@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T&T Edelmetalle | Wissen & Analyse</title>
+    <meta name="description" content="Hintergrundwissen zu Gold, Silber, Platin und Palladium. Industrielle Nutzung und Investment-Tipps." />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="main-app">
+        <nav class="navbar" role="navigation" aria-label="Hauptnavigation">
+            <div class="nav-inner">
+                <a href="index.html" class="brand-logo"><i class="fa-solid fa-layer-group"></i><span>T&T</span>Edelmetalle</a>
+                <button id="hamburger" class="btn btn-outline" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="markt.html" class="nav-item">Marktübersicht</a>
+                    <a href="rechner.html" class="nav-item">Portfolio Rechner</a>
+                    <a href="wissen.html" class="nav-item active">Wissenswertes</a>
+                </div>
+            </div>
+        </nav>
+
+        <div id="mobile-overlay"></div>
+        <div id="mobile-nav"></div>
+
+        <main class="container" style="padding-top:20px; padding-bottom:50px;">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fa-solid fa-book-open"></i> Edelmetall-Wissen & Marktanalyse</h2>
+                    </div>
+                    <div style="color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
+                        <p style="margin-top:0;">
+                            Willkommen im Research-Bereich. Hier finden Sie detaillierte Informationen zu den physischen und industriellen Eigenschaften der vier großen Edelmetalle.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
+                    <div class="card" style="border-top: 4px solid var(--color-gold);">
+                        <div class="card-title" style="color:var(--color-gold); margin-bottom:12px;">Gold (Au)</div>
+                        <div style="font-size:0.9rem; color:var(--c-text-muted); line-height:1.5;">
+                            <strong style="color:var(--c-text-main);">Der monetäre Standard</strong><br>
+                            Gold dient seit Jahrtausenden als Wertspeicher und ultimative Währung.
+                            <br><br>
+                            <strong style="color:var(--c-text-main);">Anwendungsbereiche:</strong>
+                            <ul style="padding-left:18px; margin-top:4px; margin-bottom:0;">
+                                <li><strong>Investment:</strong> Barren und Münzen.</li>
+                                <li><strong>Schmuckindustrie:</strong> Ca. 50% der Nachfrage.</li>
+                                <li><strong>Elektronik:</strong> Leitfähigkeit in Chips.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-top: 4px solid var(--color-silver);">
+                        <div class="card-title" style="color:var(--color-silver); margin-bottom:12px;">Silber (Ag)</div>
+                        <div style="font-size:0.9rem; color:var(--c-text-muted); line-height:1.5;">
+                            <strong style="color:var(--c-text-main);">Das Industriemetall</strong><br>
+                            Höchste elektrische Leitfähigkeit aller Metalle. Volatiler als Gold.
+                            <br><br>
+                            <strong style="color:var(--c-text-main);">Anwendungsbereiche:</strong>
+                            <ul style="padding-left:18px; margin-top:4px; margin-bottom:0;">
+                                <li><strong>Photovoltaik:</strong> Solarmodule.</li>
+                                <li><strong>Medizintechnik:</strong> Antibakteriell.</li>
+                                <li><strong>E-Mobilität:</strong> Kontakte & 5G.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-top: 4px solid var(--color-plat);">
+                         <div class="card-title" style="color:var(--color-plat); margin-bottom:12px;">Platin (Pt)</div>
+                         <div style="font-size:0.9rem; color:var(--c-text-muted); line-height:1.5;">
+                            <strong style="color:var(--c-text-main);">Das rare Edelmetall</strong><br>
+                            30-mal seltener als Gold. Anfällig für Angebotsschocks (Südafrika/Russland).
+                         </div>
+                    </div>
+                     <div class="card" style="border-top: 4px solid var(--color-pall);">
+                         <div class="card-title" style="color:var(--color-pall); margin-bottom:12px;">Palladium (Pd)</div>
+                         <div style="font-size:0.9rem; color:var(--c-text-muted); line-height:1.5;">
+                            <strong style="color:var(--c-text-main);">Der Spezialist</strong><br>
+                            Schlüsselrolle in der modernen Abgasreinigung für Benziner.
+                         </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fa-solid fa-calculator"></i> So nutzen Sie den Portfolio Rechner</h3>
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; color:var(--c-text-muted); font-size:0.9rem; line-height:1.5;">
+                        <div>
+                            <div style="color:var(--c-primary); font-weight:700; margin-bottom:6px;">1. Modus wählen</div>
+                            Entscheiden Sie zwischen Katalog (Münzen) und manueller Eingabe (Gramm).
+                        </div>
+                        <div>
+                             <div style="color:var(--c-primary); font-weight:700; margin-bottom:6px;">2. Daten erfassen</div>
+                            Fügen Sie Ihre Positionen hinzu. Die Kurse werden automatisch geladen.
+                        </div>
+                        <div>
+                             <div style="color:var(--c-primary); font-weight:700; margin-bottom:6px;">3. Exportieren</div>
+                            Speichern Sie Ihr Portfolio als PDF für Ihre Unterlagen.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+             <div class="container" style="display:flex; flex-direction:column; gap:8px; align-items:center;">
+                <div style="max-width:1000px; text-align:center; color:var(--c-text-muted); font-size:0.9rem;">&copy; 2025. Alle Rechte vorbehalten.</div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px;">
+                    <button class="btn btn-outline btn-sm" onclick="openLegal('impressum')">Impressum</button>
+                    <button class="btn btn-outline btn-sm" onclick="openLegal('haftung')">Haftungsausschluss</button>
+                    <button class="btn btn-outline btn-sm" onclick="openLegal('datenschutz')">Datenschutz</button>
+                </div>
+            </div>
+        </footer>
+        
+        <div id="legal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:900; align-items:center; justify-content:center; padding:16px;">
+            <div id="legal-modal" style="max-width:900px; width:100%; max-height:85vh; overflow:auto; background:var(--c-bg-card); border:1px solid var(--c-border); border-radius:12px; padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                    <h3 id="legal-title">Rechtliches</h3>
+                    <button class="btn btn-outline" onclick="closeLegal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="legal-content" style="margin-top:12px; color:var(--c-text-muted); line-height:1.45;"></div>
+            </div>
+        </div>
+        <div id="consent-overlay" style="display:none;">
+            <div id="consent-banner">
+                <div class="consent-text"><div style="font-weight:700; color:var(--c-text-main);">Drittanbieter</div><div class="consent-small">Zustimmung erforderlich.</div></div>
+                <div class="consent-actions"><button class="btn btn-outline btn-sm" onclick="declineConsent()">Ablehnen</button><button class="btn btn-primary btn-sm" onclick="acceptConsent()">Akzeptieren</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
