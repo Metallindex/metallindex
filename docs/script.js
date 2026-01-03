@@ -366,7 +366,7 @@ function openLegal(type) {
     if (type === 'impressum') { 
         headline = 'Impressum'; 
         // Adresse angeglichen an Datenschutz
-        html = '<p><strong>Angaben gemäß § 5 TMG</strong></p><p>T&T Edelmetalle<br>Österreich<br>2293 marchegg<br>E-Mail: info.ttedelmetalle@gmail.com</p>'; 
+        html = '<p><strong>T&T Edelmetalle</strong></p><p>Tobias T.<br>Österreich<br>2293 Marchegg<br>E-Mail: info.ttedelmetalle@gmail.com</p>'; 
     }
 
     if (type === 'haftung') { 
