@@ -13,269 +13,289 @@
     <meta property="og:url" content="https://www.ihre-domain.de/quiz.html" />
     <meta property="og:image" content="https://www.ihre-domain.de/social-share-image.jpg" />
 
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Quiz",
-      "name": "Edelmetall Experten-Wissen",
-      "description": "Ein Test über physikalische Eigenschaften und ökonomische Hintergründe von Edelmetallen.",
-      "educationalAlignment": {
-        "@type": "AlignmentObject",
-        "alignmentType": "educationalLevel",
-        "targetName": "Investor"
-      }
-    }
-    </script>
-
     <style>
-        /* Fallback Variablen */
+        /* -------------------------
+           Farbvariablen & Theme
+           ------------------------- */
         :root {
-            --c-primary: #D4AF37; /* Goldton */
+            --c-primary: #D4AF37;            /* Goldton */
             --c-primary-rgb: 212, 175, 55;
-            --c-bg-card: #ffffff;
-            --c-text-main: #333333;
-            --c-text-muted: #666666;
-            --c-border: #e0e0e0;
-            /* ÄNDERUNG: Hintergrund auf Weiß gesetzt für Uniformität */
-            --c-bg-body: #ffffff; 
-            /* ÄNDERUNG: Neue Variable für Button-Hintergrund */
-            --c-bg-btn: #f8f9fa; 
+            --c-bg-body: #071127;           /* dunkler Hintergrund (kein Weiß mehr) */
+            --c-surface: rgba(255,255,255,0.03); /* semi-transparente Oberfläche */
+            --c-surface-2: rgba(255,255,255,0.04);
+            --c-btn-bg: rgba(255,255,255,0.03);
+            --c-text-main: #e6eef8;         /* helles Text für guten Kontrast */
+            --c-text-muted: #a9b3c0;
+            --c-border: rgba(255,255,255,0.06);
+            --c-success: #34a853;
+            --c-danger: #ea4335;
         }
 
+        /* -------------------------
+           Global
+           ------------------------- */
+        * { box-sizing: border-box; }
+        html, body {
+            height: 100%;
+        }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--c-bg-body);
-            color: var(--c-text-main);
             margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 600px at 10% 10%, rgba(212,175,55,0.03), transparent 10%),
+                        linear-gradient(180deg, var(--c-bg-body) 0%, #04101a 100%);
+            color: var(--c-text-main);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
         }
 
-        /* Layout & Container */
-        .quiz-container { 
-            max-width: 700px;
-            margin: 0 auto; 
+        /* Container */
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
             width: 100%;
-            padding: 0 15px;
-            box-sizing: border-box;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-top: 20px;
-        }
-        .hero-title {
-            font-weight: 700;
-            color: var(--c-text-main);
-            margin-bottom: 10px;
-        }
-        .hero-text {
-            color: var(--c-text-muted);
-            line-height: 1.5;
-        }
-
-        /* ÄNDERUNG: Card-Design flacher gemacht, damit es nahtlos wirkt */
-        .card {
-            background: var(--c-bg-card);
-            /* Rahmen entfernt für nahtlosen Look */
-            border: none; 
-            border-radius: 12px;
-            padding: 10px 0; /* Padding reduziert, da kein Rahmen mehr */
-            /* Schatten entfernt, damit keine weißen Blöcke entstehen */
-            box-shadow: none; 
-            min-height: 480px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Progress Bar */
-        .progress-bar { 
-            height: 6px;
-            background: #f0f0f0; 
-            border-radius: 3px; 
-            margin-bottom: 25px; 
-            overflow: hidden; 
-        }
-        .progress-fill { 
-            height: 100%;
-            background: var(--c-primary); 
-            width: 0%; 
-            transition: width 0.4s ease; 
-        }
-
-        /* Fragen & Optionen */
-        .question-text {
-            font-size: 1.25rem; /* Leicht vergrößert */
-            font-weight: 600;
-            margin-bottom: 25px;
-            line-height: 1.4;
-            color: var(--c-text-main);
-        }
-
-        .option-btn { 
-            display: flex;
-            align-items: center;
-            width: 100%; 
-            text-align: left; 
-            margin-bottom: 12px; 
-            padding: 16px 20px; 
-            border: 1px solid transparent; /* Transparent statt grau */
-            border-radius: 8px;
-            /* ÄNDERUNG: Leicht grauer Hintergrund, damit Buttons sichtbar sind */
-            background: var(--c-bg-btn); 
-            color: var(--c-text-main); 
-            cursor: pointer;
-            transition: all 0.2s ease; 
-            font-size: 1rem;
-            font-family: inherit;
-            position: relative;
-        }
-
-        /* Hover */
-        @media (hover: hover) {
-            .option-btn:not(.disabled):hover { 
-                border-color: var(--c-primary);
-                background: rgba(var(--c-primary-rgb), 0.1); 
-                transform: translateY(-1px); /* Kleiner Hebe-Effekt */
-            }
-        }
-
-        .option-btn.disabled { cursor: default; }
-
-        .option-btn.correct { 
-            background: #e6f4ea;
-            border-color: #34a853; 
-            color: #137333; 
-            font-weight: 500;
-        }
-        .option-btn.wrong { 
-            background: #fce8e6;
-            border-color: #ea4335; 
-            color: #c5221f; 
-            opacity: 0.9;
-        }
-        
-        /* Icons für Feedback */
-        .feedback-icon {
-            margin-left: auto;
-            font-size: 1.1rem;
-        }
-
-        /* Erklärungstext */
-        .explanation-box {
-            background: #f8f9fa;
-            border-left: 4px solid var(--c-primary);
             padding: 20px;
-            margin-top: 20px;
-            font-size: 0.95rem;
-            color: var(--c-text-muted);
-            border-radius: 0 8px 8px 0;
-            animation: fadeIn 0.3s ease;
-            display: none; 
-        }
-        .explanation-box.visible { display: block; }
-
-        /* Action Buttons */
-        .btn-next {
-            background-color: var(--c-primary);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 25px;
-            float: right;
-            display: none; 
-            transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .btn-next:hover { opacity: 0.95; transform: translateY(-1px); }
-        .btn-next.visible { display: inline-block; }
-
-        /* Ergebnis Screen */
-        .result-score {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--c-primary);
-            margin: 20px 0;
-        }
-        .result-msg {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--c-text-muted);
         }
 
-        /* Animationen */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Navigation Styles */
-        .navbar { 
-            background: #fff;
-            /* Border unten entfernt für cleanen Look, optional */
-            border-bottom: 1px solid var(--c-border); 
-            padding: 15px 0; 
+        /* -------------------------
+           Navigation
+           ------------------------- */
+        .navbar {
+            background: transparent; /* kein weißer Balken */
+            border-bottom: 1px solid transparent;
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 40;
         }
-        .nav-inner { 
+        .nav-inner {
             max-width: 1200px;
-            margin: 0 auto; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 0 20px;
         }
-        .brand-logo { 
+        .brand-logo {
             text-decoration: none;
-            color: #333; 
-            font-weight: 700; 
-            font-size: 1.2rem; 
-            display: flex; 
+            color: var(--c-text-main);
+            font-weight: 700;
+            font-size: 1.15rem;
+            display: flex;
             gap: 8px;
             align-items: center;
         }
-        .nav-menu { display: flex; gap: 20px; }
-        .nav-item { text-decoration: none; color: #555; font-weight: 500;}
-        .nav-item.active { color: var(--c-primary); font-weight: 600; }
-        
-        /* Mobile Nav Logic */
+        .brand-logo i { transform: translateY(1px); }
+        .nav-menu { display: flex; gap: 18px; align-items:center; }
+        .nav-item {
+            text-decoration: none;
+            color: var(--c-text-muted);
+            font-weight: 500;
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+        .nav-item.active {
+            color: var(--c-primary);
+            background: rgba(var(--c-primary-rgb), 0.06);
+            font-weight: 600;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--c-border);
+            color: var(--c-text-main);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Mobile Nav */
+        #hamburger { display: none; background: transparent; border: 1px solid var(--c-border); color:var(--c-text-main); padding:8px 10px; border-radius:6px; }
         @media (max-width: 768px) {
-            .nav-menu { 
+            #hamburger { display: block; }
+            .nav-menu {
                 display: none;
-                position: absolute; 
-                top: 60px; 
-                left: 0; 
-                right: 0; 
-                background: white; 
-                flex-direction: column; 
-                padding: 20px; 
-                border-bottom: 1px solid var(--c-border);
-                box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+                position: absolute;
+                top: 64px;
+                left: 12px;
+                right: 12px;
+                background: rgba(255,255,255,0.02);
+                flex-direction: column;
+                padding: 16px;
+                border-radius: 10px;
+                border: 1px solid var(--c-border);
+                box-shadow: 0 8px 30px rgba(0,0,0,0.45);
                 z-index: 100;
             }
             .nav-menu.active { display: flex; }
-            .btn-outline { background: none; border: 1px solid #ddd; padding: 8px 12px; border-radius: 4px; }
-            
-            /* Mobile Quiz Anpassung */
-            .card { min-height: auto; padding: 0; }
-            .question-text { font-size: 1.15rem; }
-            .option-btn { padding: 14px 16px; }
         }
-        
+
+        /* -------------------------
+           Hero
+           ------------------------- */
+        .hero-section { text-align: center; margin: 10px 0 26px; padding-top: 8px; }
+        .hero-title {
+            font-weight: 700;
+            color: var(--c-text-main);
+            margin-bottom: 6px;
+            font-size: 1.9rem;
+        }
+        .hero-text { color: var(--c-text-muted); margin: 0; }
+
+        /* -------------------------
+           Card / Quiz Area
+           ------------------------- */
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid var(--c-border);
+            border-radius: 14px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: auto;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+        }
+
+        .top-meta {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+            color:var(--c-text-muted);
+            font-size:0.95rem;
+        }
+
+        /* Progress */
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(var(--c-primary-rgb),1), rgba(255,215,120,0.9));
+            width: 0%;
+            transition: width 0.45s ease;
+            border-radius: 999px;
+            box-shadow: 0 2px 8px rgba(212,175,55,0.12);
+        }
+
+        /* Question & Options */
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 6px 0 18px;
+            color: var(--c-text-main);
+            line-height: 1.4;
+        }
+
+        .options-wrap { display:flex; flex-direction:column; gap:12px; }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            text-align: left;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--c-border);
+            background: var(--c-btn-bg);
+            color: var(--c-text-main);
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+            font-size: 1rem;
+            position: relative;
+            gap:8px;
+        }
+        .option-btn span { flex:1; }
+
+        @media (hover:hover) {
+            .option-btn:not(.disabled):hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 20px rgba(2,6,23,0.6);
+                background: rgba(var(--c-primary-rgb), 0.08);
+            }
+        }
+
+        .option-btn.disabled { cursor: default; opacity: 0.98; }
+
+        .option-btn.correct {
+            background: linear-gradient(90deg, rgba(52,168,83,0.12), rgba(52,168,83,0.06));
+            border-color: rgba(52,168,83,0.25);
+            color: var(--c-success);
+            font-weight: 600;
+        }
+        .option-btn.wrong {
+            background: linear-gradient(90deg, rgba(234,67,53,0.08), rgba(234,67,53,0.03));
+            border-color: rgba(234,67,53,0.22);
+            color: var(--c-danger);
+            font-weight: 600;
+        }
+
+        .feedback-icon { margin-left: 8px; font-size: 1.05rem; }
+
+        /* Explanation */
+        .explanation-box {
+            display: none;
+            background: rgba(255,255,255,0.02);
+            border-left: 4px solid rgba(var(--c-primary-rgb),0.18);
+            padding: 14px 16px;
+            border-radius: 8px;
+            color: var(--c-text-muted);
+            font-size: 0.95rem;
+        }
+        .explanation-box.visible { display: block; }
+
+        /* Next Button */
+        .btn-next {
+            background-color: var(--c-primary);
+            color: #071127;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: auto;
+            margin-top: 12px;
+            display: none;
+            transition: transform .12s ease, opacity .12s ease;
+            box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+        }
+        .btn-next.visible { display: inline-flex; align-items:center; gap:8px; }
+        .btn-next:hover { transform: translateY(-3px); opacity: 0.98; }
+
+        /* Results */
+        .result-score { font-size: 2.6rem; font-weight: 800; color: var(--c-primary); margin: 10px 0; }
+        .result-msg { color: var(--c-text-muted); font-size: 1.05rem; margin-bottom: 12px; }
+
         /* Footer */
-        footer { 
-            margin-top: auto;
-            padding: 30px 0; 
-            background: #fff; 
-            border-top: 1px solid var(--c-border); 
+        footer {
+            margin-top: 30px;
+            padding: 28px 12px;
+            background: transparent; /* kein weiß */
+            border-top: 1px solid transparent;
+            color: var(--c-text-muted);
+        }
+        footer a { color: inherit; text-decoration: underline; opacity: 0.9; }
+
+        /* Small screens adjust */
+        @media (max-width: 768px) {
+            .quiz-container { padding: 12px; }
+            .card { padding: 16px; }
+            .question-text { font-size: 1.08rem; }
+            .option-btn { padding: 12px 14px; font-size: 0.98rem; }
+            .hero-title { font-size: 1.5rem; }
+            .result-score { font-size: 2rem; }
         }
     </style>
 </head>
@@ -287,7 +307,11 @@
                     <i class="fa-solid fa-layer-group" style="color:var(--c-primary);"></i>
                     <span>T&T</span> Edelmetalle
                 </a>
-                <button id="hamburger" class="btn btn-outline" style="display:none;" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
+
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <button id="hamburger" class="btn-outline" onclick="toggleMobileNav()"><i class="fa-solid fa-bars"></i></button>
+                </div>
+
                 <div class="nav-menu" id="navMenu">
                     <a href="markt.html" class="nav-item">Marktübersicht</a>
                     <a href="rechner.html" class="nav-item">Portfolio Rechner</a>
@@ -297,16 +321,16 @@
             </div>
         </nav>
 
-        <main class="container quiz-container" style="margin-top: 40px; margin-bottom: 60px;">
+        <main class="quiz-container" style="margin-top: 18px; margin-bottom: 36px;">
             <div class="hero-section">
                 <h1 class="hero-title">Edelmetall Experten-Quiz</h1>
                 <p class="hero-text">Beweisen Sie Ihr Wissen über Märkte, Eigenschaften und Geschichte.</p>
             </div>
 
             <article class="card" id="quiz-box">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; color:var(--c-text-muted); font-size:0.9rem;">
+                <div class="top-meta" aria-hidden="true">
                     <span id="q-counter">Frage 1 / 10</span>
-                    <span><i class="fa-solid fa-trophy" style="color:var(--c-primary);"></i> <span id="score-display">0</span></span>
+                    <span style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-trophy" style="color:var(--c-primary);"></i> <span id="score-display">0</span></span>
                 </div>
 
                 <div class="progress-bar" role="progressbar" aria-label="Fortschritt im Quiz">
@@ -315,10 +339,12 @@
                 
                 <div id="quiz-content-area">
                     <h2 id="question-text" class="question-text">Lädt...</h2>
-                    <div id="options-container"></div>
+                    <div id="options-container" class="options-wrap" aria-live="polite"></div>
                     
-                    <div id="explanation" class="explanation-box"></div>
-                    <button id="next-btn" class="btn-next" onclick="nextQuestion()">Nächste Frage <i class="fa-solid fa-arrow-right"></i></button>
+                    <div id="explanation" class="explanation-box" aria-hidden="true"></div>
+                    <div style="display:flex; justify-content:flex-end;">
+                        <button id="next-btn" class="btn-next" onclick="nextQuestion()">Nächste Frage <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
                 </div>
 
                 <div id="result-container" style="display:none; text-align:center; padding: 20px 0;">
@@ -335,7 +361,7 @@
             <div class="container" style="display:flex; flex-direction:column; gap:8px; align-items:center;">
                 <div style="display:flex; gap:10px; align-items:center;">
                     <i class="fa-solid fa-layer-group" style="color:var(--c-primary);"></i> 
-                    <strong>T&T Edelmetalle</strong>
+                    <strong style="color:var(--c-text-main)">T&T Edelmetalle</strong>
                 </div>
                 <div style="text-align:center; color:var(--c-text-muted); font-size:0.85rem;">
                     &copy; 2025. Alle Rechte vorbehalten. | <a href="#" style="color:inherit;">Impressum</a>
@@ -345,15 +371,17 @@
     </div>
 
     <script>
-        // Responsive Mobile Nav Logic (Inline for simplicity)
-        if(window.innerWidth <= 768) {
-            document.getElementById('hamburger').style.display = 'block';
-        }
+        // Mobile nav logic
         function toggleMobileNav() {
             document.getElementById('navMenu').classList.toggle('active');
         }
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.getElementById('navMenu').classList.remove('active');
+            }
+        });
 
-        [cite_start]// Quiz Daten: Professionell & Informativ [cite: 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85]
+        // Quiz-Daten (unverändert, als Basis übernommen)
         const quizData = [
             {
                 q: "Welches Edelmetall besitzt physikalisch die höchste elektrische Leitfähigkeit?",
@@ -447,6 +475,7 @@
             // Reset UI
             currentState.answered = false;
             elExplanation.classList.remove('visible');
+            elExplanation.setAttribute('aria-hidden', 'true');
             elNextBtn.classList.remove('visible');
             elOptionsContainer.innerHTML = '';
             
@@ -462,55 +491,59 @@
             data.o.forEach((opt, i) => {
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
-                btn.innerHTML = `<span>${opt}</span>`; // Span for flex alignment
+                btn.type = 'button';
+                btn.innerHTML = `<span>${opt}</span>`;
                 btn.onclick = () => handleAnswer(i, btn);
+                btn.setAttribute('aria-pressed','false');
                 elOptionsContainer.appendChild(btn);
             });
         }
 
         function handleAnswer(selectedIndex, btnElement) {
             if (currentState.answered) return;
-            // Prevent multiple clicks
             currentState.answered = true;
             const currentData = quizData[currentState.index];
-            const allBtns = document.querySelectorAll('.option-btn');
+            const allBtns = Array.from(document.querySelectorAll('.option-btn'));
             
-            // Icon Logic
-            const iconCorrect = `<i class="fa-solid fa-check feedback-icon"></i>`;
-            const iconWrong = `<i class="fa-solid fa-xmark feedback-icon"></i>`;
+            const iconCorrect = `<i class="fa-solid fa-check feedback-icon" aria-hidden="true"></i>`;
+            const iconWrong = `<i class="fa-solid fa-xmark feedback-icon" aria-hidden="true"></i>`;
 
-            // Disable all buttons
-            allBtns.forEach(btn => btn.classList.add('disabled'));
+            // Disable all buttons visually & for keyboard
+            allBtns.forEach(btn => {
+                btn.classList.add('disabled');
+                btn.setAttribute('aria-disabled', 'true');
+            });
 
             if (selectedIndex === currentData.a) {
-                // Richtig
                 btnElement.classList.add('correct');
                 btnElement.innerHTML += iconCorrect;
                 currentState.score++;
                 elScoreDisplay.innerText = currentState.score;
             } else {
-                // Falsch
                 btnElement.classList.add('wrong');
                 btnElement.innerHTML += iconWrong;
-                // Zeige richtige Antwort an
+                // Mark correct
                 const correctBtn = allBtns[currentData.a];
-                correctBtn.classList.add('correct');
-                correctBtn.innerHTML += iconCorrect;
+                if (correctBtn) {
+                    correctBtn.classList.add('correct');
+                    correctBtn.innerHTML += iconCorrect;
+                }
             }
 
             // Show Explanation
             elExplanation.innerHTML = `<strong>Wissenswert:</strong> ${currentData.info}`;
             elExplanation.classList.add('visible');
+            elExplanation.setAttribute('aria-hidden','false');
             
             // Show Next Button
             elNextBtn.innerText = (currentState.index === quizData.length - 1) ? "Zum Ergebnis" : "Nächste Frage";
             elNextBtn.classList.add('visible');
             
-            // Scroll logic for mobile
-            if(window.innerWidth < 768) {
+            // Scroll for mobile to keep next button visible
+            if (window.innerWidth < 768) {
                 setTimeout(() => {
                     elNextBtn.scrollIntoView({behavior: "smooth", block: "nearest"});
-                }, 100);
+                }, 120);
             }
         }
 
@@ -529,19 +562,19 @@
             elProgress.style.width = '100%';
             elCounter.innerText = "Beendet";
 
-            const percentage = (currentState.score / quizData.length) * 100;
             document.getElementById('final-score').innerText = `${currentState.score} / ${quizData.length}`;
             
+            const percentage = (currentState.score / quizData.length) * 100;
             let msg = "";
-            if(percentage === 100) msg = "Perfekt! Sie sind ein wahrer Edelmetall-Experte.";
-            else if(percentage >= 80) msg = "Hervorragend! Sie kennen sich sehr gut aus.";
-            else if(percentage >= 50) msg = "Gut gemacht! Sie haben solides Basiswissen.";
+            if (percentage === 100) msg = "Perfekt! Sie sind ein wahrer Edelmetall-Experte.";
+            else if (percentage >= 80) msg = "Hervorragend! Sie kennen sich sehr gut aus.";
+            else if (percentage >= 50) msg = "Gut gemacht! Sie haben solides Basiswissen.";
             else msg = "Ein guter Anfang. Nutzen Sie unseren Wissensbereich, um mehr zu lernen.";
             
             document.getElementById('result-text').innerText = msg;
         }
 
-        // Start
+        // Start quiz
         initQuiz();
     </script>
 </body>
