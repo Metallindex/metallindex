@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-        <script type="application/ld+json">
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -10,67 +10,17 @@
       "url": "https://tt-edelmetalle.github.io/wissen"
     }
     </script>
-
-    <!-- SEO: zusätzliche Meta-Tags / Social -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edelmetalle im Vergleich - Gold, Silber, Platin | T&T Edelmetalle</title>
-    <meta name="description" content="Hintergrundwissen zu Gold, Silber, Platin und Palladium: Eigenschaften, Anwendungsbereiche, Aufbewahrung, Kaufleitfaden und häufige Fragen." />
-    <meta name="keywords" content="Gold, Silber, Platin, Palladium, Edelmetalle, Kaufen, Aufbewahrung, Investment, Barren, Münzen, T&T Edelmetalle" />
-    <link rel="canonical" href="https://tt-edelmetalle.github.io/wissen" />
-
-    <!-- Open Graph -->
-    <meta property="og:site_name" content="T&T Edelmetalle" />
-    <meta property="og:title" content="Edelmetalle im Vergleich — Gold, Silber, Platin | T&T Edelmetalle" />
-    <meta property="og:description" content="Hintergrundwissen zu den vier grossen Edelmetallen. Verwendungszwecke und Eigenschaften." />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://tt-edelmetalle.github.io/wissen" />
-    <!-- Optional: fügen Sie hier ein Bild ein, wenn verfügbar -->
-    <!-- <meta property="og:image" content="https://tt-edelmetalle.github.io/assets/preview-wissen.jpg" /> -->
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Edelmetalle im Vergleich - T&T Edelmetalle" />
-    <meta name="twitter:description" content="Hintergrundwissen zu Gold, Silber, Platin und Palladium: Eigenschaften, Anwendungsbereiche, Aufbewahrung, Kaufleitfaden und häufige Fragen." />
-
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
     <meta name="theme-color" content="#ffffff">
-
-    <!-- Structured data: Breadcrumb + FAQ (wird weiter unten synchron zu FAQ-Inhalt) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Startseite",
-        "item": "https://tt-edelmetalle.github.io/"
-      },{
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Wissenswertes",
-        "item": "https://tt-edelmetalle.github.io/wissen"
-      }]
-    }
-    </script>
-
-    <!-- Ergänzende Organization / Contact Data (für Rich Results) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "T&T Edelmetalle",
-      "url": "https://tt-edelmetalle.github.io",
-      "sameAs": [],
-      "logo": "https://tt-edelmetalle.github.io/favicon-32x32.png"
-    }
-    </script>
-
+    <meta property="og:site_name" content="T&T Edelmetalle" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edelmetalle im Vergleich - Gold, Silber, Platin | T&T Edelmetalle</title>
+    <meta name="description" content="Hintergrundwissen zu den vier grossen Edelmetallen. Verwendungszwecke und Eigenschaften." />
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -172,180 +122,226 @@
                     </div>
                 </div>
 
-                <!-- ========== NEU: Inhaltsverzeichnis (SEO & UX) ========== -->
-                <div class="card" id="toc-card" aria-label="Inhaltsverzeichnis">
+                <!-- ===================== NEUE, ÜBERSICHTLICHE ERWEITERUNGEN ===================== -->
+                <!-- Inhaltsverzeichnis / Quick Links (klein & kompakt wie deine Cards) -->
+                <div class="card" id="extra-toc" aria-label="Inhaltsverzeichnis" style="border-top:4px solid var(--c-primary);">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fa-solid fa-list"></i> Inhaltsverzeichnis</h3>
+                        <h3 class="card-title"><i class="fa-solid fa-list"></i> Schnellzugriff</h3>
                     </div>
                     <div style="padding:12px; color:var(--c-text-muted); font-size:0.95rem;">
-                        <nav aria-label="Inhaltsverzeichnis">
-                            <a href="#deepdive" style="display:inline-block; margin-right:12px; margin-bottom:6px;">Vertiefungen</a>
-                            <a href="#kaufen-lagern" style="display:inline-block; margin-right:12px; margin-bottom:6px;">Kaufen & Lagern</a>
-                            <a href="#marktmechanik" style="display:inline-block; margin-right:12px; margin-bottom:6px;">Marktmechanik</a>
-                            <a href="#glossar" style="display:inline-block; margin-right:12px; margin-bottom:6px;">Glossar</a>
-                            <a href="#faq" style="display:inline-block; margin-right:12px; margin-bottom:6px;">FAQ</a>
-                            <a href="#ressourcen" style="display:inline-block; margin-right:12px; margin-bottom:6px;">Ressourcen</a>
-                        </nav>
-                        <p style="margin-top:10px; margin-bottom:0;">Tipp: Verwenden Sie <kbd>Strg</kbd>+<kbd>F</kbd>, um schnell Begriffe auf dieser Seite zu finden.</p>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="#extra-deep" class="btn btn-outline btn-sm">Vertiefungen</a>
+                            <a href="#extra-tools" class="btn btn-outline btn-sm">Quick-Tools</a>
+                            <a href="#extra-quiz" class="btn btn-outline btn-sm">Mini-Quiz</a>
+                            <a href="#extra-faq" class="btn btn-outline btn-sm">FAQ</a>
+                            <a href="#extra-gloss" class="btn btn-outline btn-sm">Glossar</a>
+                        </div>
+                        <p style="margin-top:10px; margin-bottom:0; font-size:0.85rem; color:var(--c-text-muted);">Kleine Hilfen & Tools — kompakt und mobil optimiert.</p>
                     </div>
                 </div>
 
-                <!-- ========== NEU: Ausführliche Vertiefungen (SEO-Inhalt) ========== -->
-                <section id="deepdive" class="card" aria-labelledby="deepdive-title">
+                <!-- Vertiefungen (kurz, übersichtlich wie deine Cards) -->
+                <div id="extra-deep" class="card" style="padding-bottom:10px;">
                     <div class="card-header">
-                        <h3 id="deepdive-title" class="card-title"><i class="fa-solid fa-book"></i> Vertiefte Artikel zu Edelmetallen</h3>
+                        <h3 class="card-title"><i class="fa-solid fa-search"></i> Kurz-Vertiefungen</h3>
                     </div>
-                    <div style="padding:14px; color:var(--c-text-muted); line-height:1.7; font-size:0.95rem;">
-                        <article aria-label="Gold">
-                            <h4>Gold (Au) — Eigenschaften & Rolle</h4>
-                            <p><strong>Kurz:</strong> Gold ist korrosionsresistent, sehr gut recyclebar und wird als Wertspeicher verwendet. Zentralbanken halten Gold zur Diversifikation von Reserven.</p>
-                            <p><strong>Technische Eigenschaften:</strong> Dichte, Duktilität und elektrische Leitfähigkeit machen Gold in bestimmten Nischen unersetzlich. In Schmuck ist die Feinheit (z.B. 999, 750) relevant für Preis & Haltbarkeit.</p>
-                            <p><strong>Markttreiber:</strong> Zinsniveau, US-Dollar-Stärke, geopolitische Risiken, und institutionelle Nachfrage (ETFs, Zentralbanken).</p>
-                        </article>
-
-                        <article aria-label="Silber" style="margin-top:12px;">
-                            <h4>Silber (Ag) — Industrieller Einsatz</h4>
-                            <p><strong>Kurz:</strong> Silber kombiniert monetäre Funktionen mit hoher industrieller Nachfrage. Besonders wichtig in Elektronik und Photovoltaik.</p>
-                            <p><strong>Eigenschaften:</strong> Höchste elektrische Leitfähigkeit, gute Wärmeleitfähigkeit. Silber neigt zu stärkeren Preisbewegungen aufgrund industrieller Nachfrageschwankungen.</p>
-                        </article>
-
-                        <article aria-label="Platin & Palladium" style="margin-top:12px;">
-                            <h4>Platin (Pt) & Palladium (Pd) — Unterschiede</h4>
-                            <p><strong>Platin:</strong> Sehr selten, wichtig in Katalysatoren und der Chemieindustrie. Angebot konzentriert auf wenige Länder — daher anfällig für Angebotsschocks.</p>
-                            <p><strong>Palladium:</strong> Schlüsselmaterial in Abgaskatalysatoren für Ottomotoren; Nachfragesprünge führen regelmäßig zu starken Preisanstiegen. Technologische Umstellungen in der Autoindustrie (z. B. Elektrifizierung) beeinflussen die Zukunft von Pd stark.</p>
-                        </article>
+                    <div style="padding:12px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
+                            <div style="border-left:3px solid var(--color-gold); padding-left:10px;">
+                                <div style="font-weight:700; margin-bottom:6px;">Gold — Rolle & Treiber</div>
+                                <p style="margin:0; font-size:0.9rem;">Monetärer Schutz, Einfluss durch Zinsen, USD-Wechselkurs und geopolitische Unsicherheit.</p>
+                            </div>
+                            <div style="border-left:3px solid var(--color-silver); padding-left:10px;">
+                                <div style="font-weight:700; margin-bottom:6px;">Silber — Industrie & Solar</div>
+                                <p style="margin:0; font-size:0.9rem;">Sehr industriell; Photovoltaik und Elektronik treiben die Nachfrage.</p>
+                            </div>
+                            <div style="border-left:3px solid var(--color-plat); padding-left:10px;">
+                                <div style="font-weight:700; margin-bottom:6px;">Platin — Seltenheit</div>
+                                <p style="margin:0; font-size:0.9rem;">Selten und konzentriert gefördert — anfällig für Angebotsrisiken.</p>
+                            </div>
+                            <div style="border-left:3px solid var(--color-pall); padding-left:10px;">
+                                <div style="font-weight:700; margin-bottom:6px;">Palladium — Auto-Spezialist</div>
+                                <p style="margin:0; font-size:0.9rem;">Wichtig für Benzin-Katalysatoren; technologische Veränderungen beeinflussen die Nachfrage stark.</p>
+                            </div>
+                        </div>
+                        <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+                            <button class="btn btn-outline btn-sm" onclick="document.getElementById('extra-tools').scrollIntoView({behavior:'smooth'})">Zu Quick-Tools</button>
+                            <button class="btn btn-outline btn-sm" onclick="document.getElementById('extra-quiz').scrollIntoView({behavior:'smooth'})">Zum Quiz</button>
+                        </div>
                     </div>
-                </section>
+                </div>
 
-                <!-- ========== NEU: Kaufen & Lagern Leitfaden ========== -->
-                <section id="kaufen-lagern" class="card" aria-labelledby="kaufen-title">
+                <!-- Quick Tools Card (Gramm->Wert Rechner, Vergleich) -->
+                <div id="extra-tools" class="card" style="padding-bottom:8px;">
                     <div class="card-header">
-                        <h3 id="kaufen-title" class="card-title"><i class="fa-solid fa-shield"></i> Kaufen & Lagern — Praxisleitfaden</h3>
+                        <h3 class="card-title"><i class="fa-solid fa-tools"></i> Quick-Tools</h3>
                     </div>
-                    <div style="padding:14px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
-                        <h4>Vor dem Kauf</h4>
-                        <ul style="padding-left:18px;">
-                            <li>Überlegen Sie Anlagehorizont & Ziel (Vermögensschutz vs. Spekulation).</li>
-                            <li>Entscheidung: Münzen (liquid, einzelhandelsfreundlich) oder Barren (günstiger pro Gramm).</li>
-                            <li>Verifizieren Sie Händlerbewertungen, Echtheitsgarantien und Versandversicherung.</li>
-                        </ul>
+                    <div style="padding:12px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:12px; align-items:start;">
 
-                        <h4 style="margin-top:12px;">Lagerung & Sicherheit</h4>
-                        <ul style="padding-left:18px;">
-                            <li>Bankfach vs. professionelle Verwahrung vs. heimischer Safe: jede Option hat Vor-/Nachteile.</li>
-                            <li>Versicherungsschutz prüfen (Hausratversicherung mit Wertsachen-Anpassung oder separate Policen).</li>
-                            <li>Dokumentation: Kaufbelege, Seriennummern, Prüfberichte sicher aufbewahren.</li>
-                        </ul>
+                            <!-- leichter, übersichtlicher Rechner -->
+                            <div style="border:1px solid var(--c-border); border-radius:8px; padding:10px;">
+                                <div style="font-weight:700; margin-bottom:8px;">Gramm → Wert Rechner</div>
+                                <label style="display:block; font-size:0.85rem; margin-bottom:6px;">Edelmetall</label>
+                                <select id="extra-metal" class="btn btn-outline" style="width:100%; padding:8px;">
+                                    <option value="Gold">Gold (g)</option>
+                                    <option value="Silber">Silber (g)</option>
+                                    <option value="Platin">Platin (g)</option>
+                                    <option value="Palladium">Palladium (g)</option>
+                                </select>
+                                <label style="display:block; font-size:0.85rem; margin:8px 0 6px;">Gewicht (g)</label>
+                                <input id="extra-grams" class="btn btn-outline" type="number" placeholder="z. B. 100" style="width:100%; padding:8px;" />
+                                <label style="display:block; font-size:0.85rem; margin:8px 0 6px;">Preis pro Gramm (€)</label>
+                                <input id="extra-price" class="btn btn-outline" type="number" placeholder="z. B. 55.20" style="width:100%; padding:8px;" />
+
+                                <div style="display:flex; gap:8px; margin-top:10px; align-items:center;">
+                                    <button id="extra-calc" class="btn btn-primary" style="flex:1;">Berechnen</button>
+                                    <button id="extra-clear" class="btn btn-outline" style="flex:0 0 auto;">Zurücksetzen</button>
+                                </div>
+
+                                <div id="extra-result" style="margin-top:10px; padding:8px; border-radius:6px; border:1px dashed var(--c-border); font-weight:600;">
+                                    Ergebnis erscheint hier.
+                                </div>
+                            </div>
+
+                            <!-- kompakter Vergleich -->
+                            <div style="border:1px solid var(--c-border); border-radius:8px; padding:10px;">
+                                <div style="font-weight:700; margin-bottom:8px;">Schnellvergleich: Seltenheit vs Industrie</div>
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <!-- minimalistische Balken, responsive -->
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <div style="font-weight:600;">Gold</div><div style="opacity:0.8;">R:8 I:5</div>
+                                    </div>
+                                    <div style="height:8px; background:linear-gradient(90deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)); border-radius:6px; overflow:hidden;">
+                                        <div style="width:60%; height:100%;"></div>
+                                    </div>
+
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <div style="font-weight:600;">Silber</div><div style="opacity:0.8;">R:6 I:9</div>
+                                    </div>
+                                    <div style="height:8px; background:linear-gradient(90deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)); border-radius:6px; overflow:hidden;">
+                                        <div style="width:80%; height:100%;"></div>
+                                    </div>
+
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <div style="font-weight:600;">Platin</div><div style="opacity:0.8;">R:9 I:6</div>
+                                    </div>
+                                    <div style="height:8px; background:linear-gradient(90deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)); border-radius:6px; overflow:hidden;">
+                                        <div style="width:70%; height:100%;"></div>
+                                    </div>
+
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <div style="font-weight:600;">Palladium</div><div style="opacity:0.8;">R:7 I:7</div>
+                                    </div>
+                                    <div style="height:8px; background:linear-gradient(90deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)); border-radius:6px; overflow:hidden;">
+                                        <div style="width:65%; height:100%;"></div>
+                                    </div>
+                                </div>
+                                <p style="margin-top:10px; font-size:0.85rem; color:var(--c-text-muted)">R = Seltenheit (1–10), I = Industrienutzung (1–10)</p>
+                            </div>
+
+                        </div>
                     </div>
-                </section>
+                </div>
 
-                <!-- ========== NEU: Marktmechanik (SEO-relevanter Text) ========== -->
-                <section id="marktmechanik" class="card" aria-labelledby="markt-title">
+                <!-- Mini-Quiz (kurz & spaßig) -->
+                <div id="extra-quiz" class="card" style="padding-bottom:8px;">
                     <div class="card-header">
-                        <h3 id="markt-title" class="card-title"><i class="fa-solid fa-chart-line"></i> Marktmechanik — Was beeinflusst Preise?</h3>
+                        <h3 class="card-title"><i class="fa-solid fa-question"></i> Mini-Quiz <small style="font-weight:400; color:var(--c-text-muted);">(3 Fragen · sofortiges Feedback)</small></h3>
                     </div>
-                    <div style="padding:14px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
-                        <p>Preise werden durch Angebot und Nachfrage, Lagerbestände, Produktionskosten, Makroökonomie (Zinsen, Inflation) und geopolitische Ereignisse beeinflusst. Zusätzlich spielen kurzfristige Faktoren wie Spekulation, ETF-Flows und Währungsbewegungen eine Rolle.</p>
-                        <h4 style="margin-top:12px;">Wichtige Indikatoren</h4>
-                        <ul style="padding-left:18px;">
-                            <li>Bestände in Warenhäusern/Refineries</li>
-                            <li>Produktion und Recyclingquoten</li>
-                            <li>Veränderungen in der Auto- und Solarindustrie (bei Pd/Ag)</li>
-                        </ul>
-                    </div>
-                </section>
+                    <div style="padding:12px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
+                        <div id="quiz-container" style="display:flex; flex-direction:column; gap:10px;">
+                            <!-- Frage 1 -->
+                            <div class="quiz-q" data-answer="Silber">
+                                <div style="font-weight:700;">1) Welches Metall hat die höchste elektrische Leitfähigkeit?</div>
+                                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                                    <button class="btn btn-outline quiz-opt">Gold</button>
+                                    <button class="btn btn-outline quiz-opt">Silber</button>
+                                    <button class="btn btn-outline quiz-opt">Platin</button>
+                                </div>
+                            </div>
 
-                <!-- ========== NEU: Glossar (semantic markup) ========== -->
-                <section id="glossar" class="card" aria-labelledby="glossar-title">
+                            <!-- Frage 2 -->
+                            <div class="quiz-q" data-answer="Platin">
+                                <div style="font-weight:700;">2) Welches Metall gilt als besonders selten im Vergleich zu Gold?</div>
+                                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                                    <button class="btn btn-outline quiz-opt">Silber</button>
+                                    <button class="btn btn-outline quiz-opt">Palladium</button>
+                                    <button class="btn btn-outline quiz-opt">Platin</button>
+                                </div>
+                            </div>
+
+                            <!-- Frage 3 -->
+                            <div class="quiz-q" data-answer="Palladium">
+                                <div style="font-weight:700;">3) Welches Metall wird häufig in Abgaskatalysatoren für Ottomotoren eingesetzt?</div>
+                                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                                    <button class="btn btn-outline quiz-opt">Palladium</button>
+                                    <button class="btn btn-outline quiz-opt">Gold</button>
+                                    <button class="btn btn-outline quiz-opt">Silber</button>
+                                </div>
+                            </div>
+
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <button id="extra-quiz-reset" class="btn btn-outline">Quiz zurücksetzen</button>
+                                <div id="extra-quiz-score" style="font-weight:700; margin-left:auto; color:var(--c-text-muted);">Punkte: 0/3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ (kompakt) -->
+                <div id="extra-faq" class="card" style="padding-bottom:8px;">
                     <div class="card-header">
-                        <h3 id="glossar-title" class="card-title"><i class="fa-solid fa-book"></i> Glossar — Wichtige Begriffe</h3>
+                        <h3 class="card-title"><i class="fa-solid fa-circle-info"></i> Häufige Fragen</h3>
                     </div>
-                    <div style="padding:14px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
-                        <dl style="margin:0;">
-                            <dt style="font-weight:700; margin-top:8px;">Feinheit (z.B. 999)</dt>
-                            <dd style="margin-left:0; margin-top:4px;">Gibt an, wie hoch der Anteil des reinen Metalls ist (999 = 99,9%).</dd>
-
-                            <dt style="font-weight:700; margin-top:8px;">Spread</dt>
-                            <dd style="margin-left:0; margin-top:4px;">Differenz zwischen Ankaufs- und Verkaufspreis eines Händlers; wichtig für Handelskosten.</dd>
-
-                            <dt style="font-weight:700; margin-top:8px;">Verwahrung</dt>
-                            <dd style="margin-left:0; margin-top:4px;">Physische Lagerung eines Edelmetalls – z. B. Bankfach, Tresorraum, verwahrende Dienstleister.</dd>
-                        </dl>
-                    </div>
-                </section>
-
-                <!-- ========== NEU: FAQ (sichtbar & für Search) ========== -->
-                <section id="faq" class="card" aria-labelledby="faq-title">
-                    <div class="card-header">
-                        <h3 id="faq-title" class="card-title"><i class="fa-solid fa-question-circle"></i> Häufige Fragen (FAQ)</h3>
-                    </div>
-                    <div style="padding:14px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
-                        <!-- Für Nutzer: nutze semantic details/summary für gute UX -->
+                    <div style="padding:12px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
                         <details>
                             <summary><strong>Wie lagere ich Edelmetalle sicher?</strong></summary>
-                            <p>Bankfach oder geprüfte Verwahrung sind am sichersten. Zu Hause: hochwertiger Safe, Diskretion und passende Versicherung sind wichtig.</p>
+                            <p>Bankfach oder professionelle Verwahrung bieten die höchste Sicherheit. Für Zuhause: hochwertiger Safe, Versicherung und Diskretion sind wichtig.</p>
                         </details>
-
                         <details style="margin-top:8px;">
                             <summary><strong>Gibt es Steuern beim Verkauf?</strong></summary>
-                            <p>Steuerliche Behandlung variiert je nach Land und Haltedauer. In einigen Ländern gibt es Spekulationsfristen; bitte nationale Regelungen prüfen.</p>
+                            <p>Die steuerliche Behandlung unterscheidet sich regional — prüfen Sie lokale Regelungen oder fragen Sie einen Steuerberater.</p>
                         </details>
-
                         <details style="margin-top:8px;">
-                            <summary><strong>Soll ich in Münzen oder Barren investieren?</strong></summary>
-                            <p>Münzen bieten Flexibilität im Verkauf; Barren haben oft niedrigere Aufschläge pro Gramm. Die Wahl hängt von Anlageziel und Liquiditätsbedarf ab.</p>
+                            <summary><strong>Münzen oder Barren — was ist besser?</strong></summary>
+                            <p>Münzen sind beim Verkauf oft flexibler; Barren bieten niedrigere Aufschläge pro Gramm. Die Wahl richtet sich nach Liquiditätsbedarf und Anlageziel.</p>
                         </details>
                     </div>
-                </section>
+                </div>
 
-                <!-- FAQ JSON-LD für Rich Results -->
-                <script type="application/ld+json">
-                {
-                  "@context": "https://schema.org",
-                  "@type": "FAQPage",
-                  "mainEntity": [
-                    {
-                      "@type": "Question",
-                      "name": "Wie lagere ich Edelmetalle sicher?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Bankfach oder geprüfte Verwahrung sind am sichersten. Zu Hause: hochwertiger Safe, Diskretion und passende Versicherung sind wichtig."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Gibt es Steuern beim Verkauf?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Steuerliche Behandlung variiert je nach Land und Haltedauer. In einigen Ländern gibt es Spekulationsfristen; bitte nationale Regelungen prüfen."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "Soll ich in Münzen oder Barren investieren?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Münzen bieten Flexibilität im Verkauf; Barren haben oft niedrigere Aufschläge pro Gramm. Die Wahl hängt von Anlageziel und Liquiditätsbedarf ab."
-                      }
-                    }
-                  ]
-                }
-                </script>
-
-                <!-- ========== NEU: Ressourcen & weiterführende Links ========== -->
-                <section id="ressourcen" class="card" aria-labelledby="ressourcen-title">
+                <!-- Glossar kompakt -->
+                <div id="extra-gloss" class="card" style="padding-bottom:8px;">
                     <div class="card-header">
-                        <h3 id="ressourcen-title" class="card-title"><i class="fa-solid fa-link"></i> Weiterführende Ressourcen</h3>
+                        <h3 class="card-title"><i class="fa-solid fa-book"></i> Glossar (kurz)</h3>
                     </div>
-                    <div style="padding:14px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
-                        <p>Empfehlung: Nutzen Sie offizielle Marktberichte, Publikationen von Edelmetall-Verbänden und die Informationen Ihrer Verwahrstelle. (Hinweis: Konkrete Links können Sie hier ergänzen.)</p>
-                        <ul style="padding-left:18px;">
-                            <li>Marktberichte & Newsletter</li>
-                            <li>Offizielle Handelskammer-Informationen zur Besteuerung</li>
-                            <li>Hersteller-Infos zur Reinheit von Münzen und Barren</li>
-                        </ul>
+                    <div style="padding:12px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
+                            <div>
+                                <div style="font-weight:700;">Feinheit</div>
+                                <div style="opacity:0.85;">Angabe in ‰ oder 999 = 99,9% reines Metall.</div>
+                            </div>
+                            <div>
+                                <div style="font-weight:700;">Spread</div>
+                                <div style="opacity:0.85;">Differenz Ankauf/Verkauf — Handelskosten.</div>
+                            </div>
+                            <div>
+                                <div style="font-weight:700;">Verwahrung</div>
+                                <div style="opacity:0.85;">Physische Lagerung: Bankfach, Verwahrer, Heimtresor.</div>
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
+
+                <!-- kleine Ressourcen-Box -->
+                <div class="card" style="padding-bottom:8px;">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fa-solid fa-link"></i> Weiterführende Hinweise</h3>
+                    </div>
+                    <div style="padding:12px; color:var(--c-text-muted); line-height:1.6; font-size:0.95rem;">
+                        <p style="margin:0;">Für tiefergehende Marktberichte, steuerliche Fragen oder professionelle Verwahrung empfehlen wir spezialisierte Anbieter und Beratungen. Ergänzen Sie gern eigene Links hier.</p>
+                    </div>
+                </div>
 
             </div>
         </main>
@@ -377,6 +373,121 @@
             </div>
         </div>
     </div>
+
+    <!-- Inline Script für die neuen Widgets (keine Änderung an script.js) -->
+    <script>
+    (function(){
+      /* ====== Gramm->Wert Rechner ====== */
+      const calcBtn = document.getElementById('extra-calc');
+      const clearBtn = document.getElementById('extra-clear');
+      const metalSel = document.getElementById('extra-metal');
+      const gramsInput = document.getElementById('extra-grams');
+      const priceInput = document.getElementById('extra-price');
+      const resultBox = document.getElementById('extra-result');
+
+      if (calcBtn) {
+        calcBtn.addEventListener('click', function(){
+          const g = parseFloat(gramsInput.value);
+          const p = parseFloat(priceInput.value);
+          const m = metalSel.value;
+          if (!g || !p) {
+            resultBox.textContent = 'Bitte Gewicht (g) und Preis pro Gramm eingeben.';
+            return;
+          }
+          const total = (g * p).toFixed(2);
+          resultBox.textContent = `${g} g ${m} ≈ ${total} € (ungefähr)`;
+        });
+      }
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function(){
+          gramsInput.value = '';
+          priceInput.value = '';
+          metalSel.value = 'Gold';
+          resultBox.textContent = 'Ergebnis erscheint hier.';
+        });
+      }
+
+      /* ====== Mini-Quiz ====== */
+      const quizContainer = document.getElementById('quiz-container');
+      const quizQs = quizContainer ? quizContainer.querySelectorAll('.quiz-q') : [];
+      const scoreBox = document.getElementById('extra-quiz-score');
+      const quizReset = document.getElementById('extra-quiz-reset');
+
+      function updateScore() {
+        const total = quizQs.length;
+        let correct = 0;
+        quizQs.forEach(q => {
+          const answered = q.dataset.given;
+          if (answered && answered === q.dataset.answer) correct++;
+        });
+        if (scoreBox) scoreBox.textContent = `Punkte: ${correct}/${total}`;
+      }
+
+      quizQs.forEach(q => {
+        const opts = q.querySelectorAll('.quiz-opt');
+        opts.forEach(opt => {
+          opt.addEventListener('click', function(){
+            // disable siblings
+            opts.forEach(b => b.disabled = true);
+            const given = this.textContent.trim();
+            q.dataset.given = given;
+            // feedback styling
+            if (given === q.dataset.answer) {
+              this.textContent = '✓ ' + this.textContent;
+              this.classList.remove('btn-outline');
+              this.classList.add('btn-primary');
+            } else {
+              this.textContent = '✕ ' + this.textContent;
+              this.classList.remove('btn-outline');
+              this.style.opacity = '0.7';
+              // mark correct option
+              opts.forEach(b=>{
+                if (b.textContent.trim() === q.dataset.answer) {
+                  b.classList.remove('btn-outline');
+                  b.classList.add('btn-primary');
+                }
+              });
+            }
+            updateScore();
+          });
+        });
+      });
+
+      if (quizReset) {
+        quizReset.addEventListener('click', function(){
+          quizQs.forEach(q => {
+            q.dataset.given = '';
+            const opts = q.querySelectorAll('.quiz-opt');
+            opts.forEach(b => {
+              b.disabled = false;
+              // reset text (remove prefixes if any)
+              b.textContent = b.textContent.replace(/^✓\s+|^✕\s+/, '').trim();
+              b.classList.remove('btn-primary');
+              b.classList.add('btn-outline');
+              b.style.opacity = '1';
+            });
+          });
+          updateScore();
+        });
+      }
+
+      // init score
+      updateScore();
+
+      /* ====== Small UX: smooth anchor scrolling for links inside extra-toc ====== */
+      document.querySelectorAll('#extra-toc a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          const id = this.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if (el) el.scrollIntoView({behavior:'smooth'});
+        });
+      });
+
+    })();
+    </script>
+
+    <!-- Verlinkung zur bestehenden Logik -->
     <script src="script.js"></script>
 </body>
 </html>
