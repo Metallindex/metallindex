@@ -77,12 +77,13 @@
                 </aside>
 
                 <div class="main-content">
-                    <div class="card">
+                    <div class="card" style="min-height: 500px;">
                         <div class="card-header">
                             <h2 class="card-title" style="margin:0; font-size:1rem;"><i class="fa-solid fa-chart-area"></i> Spot Markt Entwicklung</h2>
                         </div>
+                        
                         <div class="tradingview-widget-container" style="height: 500px; width: 100%;">
-                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tradingview-widget-container__widget" style="height: 100%; width: 100%;"></div>
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
                             {
                             "symbols": [
@@ -93,10 +94,10 @@
                             ],
                             "chartOnly": false, 
                             "width": "100%", 
-                            "height": "500", 
+                            "height": "100%", 
                             "locale": "de_DE",
                             "colorTheme": "dark", 
-                            "autosize": false, 
+                            "autosize": true, 
                             "showVolume": false, 
                             "hideDateRanges": false,
                             "scalePosition": "right", 
