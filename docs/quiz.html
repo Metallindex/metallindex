@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Experten-Quiz: Edelmetalle & Märkte | T&T Edelmetalle</title>
-    <meta name="description" content="Testen Sie Ihr Fachwissen über Gold, Silber, Platin und Märkte. 10 Fragen für Investoren und Experten im interaktiven Edelmetall-Quiz." />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!DOCTYPE html> <html lang="de"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>Experten-Quiz: Edelmetalle & Märkte | T&T Edelmetalle</title> <meta name="description" content="Testen Sie Ihr Fachwissen über Gold, Silber, Platin und Märkte. 10 Fragen für Investoren und Experten im interaktiven Edelmetall-Quiz." /> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <!-- DESIGN SYSTEM (vom bereitgestellten CSS) -->
 <style>
 :root {
@@ -82,24 +74,22 @@ h1.brand-logo {
     #hamburger { display: inline-flex; }
 }
 
-/* MOBILE NAV DRAWER (simple, works with the toggle class .active) */
-@media(max-width:900px) {
-    .nav-menu.active {
-        display: flex;
-        position: fixed;
-        top: var(--nav-height);
-        left: 0;
-        right: 0;
-        background: var(--c-bg-card);
-        border-top: 1px solid var(--c-border);
-        padding: 12px;
-        gap: 8px;
-        flex-direction: column;
-        z-index: 150;
-        box-shadow: 0 8px 30px rgba(2,6,23,0.6);
-    }
-    .nav-menu.active .nav-item { display: block; width: 100%; border-radius: 8px; padding: 12px; }
+/* MOBILE NAV DRAWER */
+#mobile-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+    z-index: 140; opacity: 0; transition: opacity 220ms ease; pointer-events: none;
 }
+#mobile-overlay.active { display: block; opacity: 1; pointer-events: auto; }
+
+#mobile-nav {
+    position: fixed; top: var(--nav-height); left: 0; bottom: 0; width: 80vw; max-width: 320px;
+    transform: translateX(-120%); background: var(--c-bg-card); border-right: 1px solid var(--c-border);
+    padding: 12px; z-index: 150; transition: transform 280ms cubic-bezier(.2,.9,.2,1);
+    overflow-y: auto; -webkit-overflow-scrolling: touch; box-shadow: 6px 0 30px rgba(2,6,23,0.5);
+}
+#mobile-nav.open { transform: translateX(0); }
+#mobile-nav .nav-item { display: block; margin-bottom: 8px; }
+.no-scroll { overflow: hidden; }
 
 .card {
     background: var(--c-bg-card); border: 1px solid var(--c-border); border-radius: var(--radius-lg);
@@ -190,12 +180,12 @@ footer { background: var(--c-bg-card); border-top: 1px solid var(--c-border); pa
     font-size: clamp(1.5rem, 3.2vw, 2.8rem);
     font-weight: 800;
     margin: 0 0 8px 0;
-    /* Cross-browser gradient text: ensure the text itself is transparent so background-clip:text works consistently */
+    /* Ensure only the text shows the gold gradient (no gold bar behind) */
+    display: inline-block;
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    -moz-background-clip: text;
     background: linear-gradient(135deg, #fff 30%, var(--c-primary));
 }
 .hero-text { color: var(--c-text-muted); margin: 0; }
@@ -320,14 +310,7 @@ footer { background: var(--c-bg-card); border-top: 1px solid var(--c-border); pa
 }
 </style>
 
-</head>
-<body>
-    <header class="navbar" role="banner" aria-label="Top Navigation">
-        <div class="nav-inner">
-            <a href="index.html" class="brand-logo" title="Zur Startseite">
-                <i class="fa-solid fa-layer-group" style="color:var(--c-primary);"></i>
-                <span>T&T</span> Edelmetalle
-            </a>
+</head> <body> <header class="navbar" role="banner" aria-label="Top Navigation"> <div class="nav-inner"> <a href="index.html" class="brand-logo" title="Zur Startseite"> <i class="fa-solid fa-layer-group" style="color:var(--c-primary);"></i> <span>T&T</span> Edelmetalle </a>
         <div class="nav-menu" id="navMenu">
             <a href="markt.html" class="nav-item">Marktübersicht</a>
             <a href="rechner.html" class="nav-item">Portfolio Rechner</a>
@@ -335,11 +318,20 @@ footer { background: var(--c-bg-card); border-top: 1px solid var(--c-border); pa
             <a href="quiz.html" class="nav-item active">Quiz</a>
         </div>
 
-        <button id="hamburger" class="btn btn-outline" aria-expanded="false" aria-controls="navMenu" onclick="toggleMobileNav()">
+        <button id="hamburger" class="btn btn-outline" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleMobileNav()">
             <i class="fa-solid fa-bars"></i>
         </button>
     </div>
 </header>
+
+<!-- Mobile overlay + nav (matching the CSS for mobile drawer) -->
+<div id="mobile-overlay" onclick="closeMobileNav()" aria-hidden="true"></div>
+<nav id="mobile-nav" aria-hidden="true" aria-label="Mobile Navigation">
+    <a href="markt.html" class="nav-item">Marktübersicht</a>
+    <a href="rechner.html" class="nav-item">Portfolio Rechner</a>
+    <a href="wissen.html" class="nav-item">Wissenswertes</a>
+    <a href="quiz.html" class="nav-item active">Quiz</a>
+</nav>
 
 <main class="container quiz-wrapper" id="main-app" role="main">
     <section class="quiz-hero" aria-hidden="true">
@@ -395,17 +387,46 @@ footer { background: var(--c-bg-card); border-top: 1px solid var(--c-border); pa
 </footer>
 
 <script>
-    // Mobile nav logic
+    // Mobile nav logic: uses the dedicated mobile overlay + mobile nav drawer
     function toggleMobileNav() {
-        const nav = document.getElementById('navMenu');
-        nav.classList.toggle('active');
-        const expanded = nav.classList.contains('active');
-        document.getElementById('hamburger').setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        const overlay = document.getElementById('mobile-overlay');
+        const mobileNav = document.getElementById('mobile-nav');
+        const hamburger = document.getElementById('hamburger');
+
+        const isOpen = mobileNav.classList.contains('open');
+        if (isOpen) {
+            mobileNav.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            hamburger.setAttribute('aria-expanded', 'false');
+            mobileNav.setAttribute('aria-hidden', 'true');
+            overlay.setAttribute('aria-hidden', 'true');
+        } else {
+            mobileNav.classList.add('open');
+            overlay.classList.add('active');
+            document.body.classList.add('no-scroll');
+            hamburger.setAttribute('aria-expanded', 'true');
+            mobileNav.setAttribute('aria-hidden', 'false');
+            overlay.setAttribute('aria-hidden', 'false');
+        }
     }
+
+    function closeMobileNav() {
+        const overlay = document.getElementById('mobile-overlay');
+        const mobileNav = document.getElementById('mobile-nav');
+        const hamburger = document.getElementById('hamburger');
+        mobileNav.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    // Ensure desktop resize closes mobile nav
     window.addEventListener('resize', () => {
         if (window.innerWidth > 900) {
-            document.getElementById('navMenu').classList.remove('active');
-            document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+            closeMobileNav();
         }
     });
 
@@ -597,5 +618,4 @@ footer { background: var(--c-bg-card); border-top: 1px solid var(--c-border); pa
     initQuiz();
 </script>
 
-</body>
-</html>
+</body> </html>
