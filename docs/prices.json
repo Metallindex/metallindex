@@ -1,11 +1,11 @@
 {
   "fetched_from": "goldapi.io",
-  "updated_at": "2026-08-09T08:34:04.831Z",
+  "updated_at": "2026-08-09T16:26:04.003Z",
   "rates": {
     "gold": {
       "per_oz": 3756.84,
       "raw": {
-        "timestamp": 1786264436,
+        "timestamp": 1786292757,
         "metal": "XAU",
         "currency": "EUR",
         "exchange": "FOREXCOM",
@@ -31,88 +31,19 @@
       }
     },
     "silver": {
-      "per_oz": 54.9975,
-      "raw": {
-        "timestamp": 1786264432,
-        "metal": "XAG",
-        "currency": "EUR",
-        "exchange": "SAXO",
-        "symbol": "SAXO:XAGEUR",
-        "prev_close_price": 53.4025,
-        "open_price": 53.4025,
-        "low_price": 53.09885,
-        "high_price": 56.3245,
-        "open_time": 1786060800,
-        "price": 54.9975,
-        "ch": 1.595,
-        "chp": 2.99,
-        "ask": 55.0403,
-        "bid": 54.9547,
-        "price_gram_24k": 1.7682,
-        "price_gram_22k": 1.6209,
-        "price_gram_21k": 1.5472,
-        "price_gram_20k": 1.4735,
-        "price_gram_18k": 1.3262,
-        "price_gram_16k": 1.1788,
-        "price_gram_14k": 1.0315,
-        "price_gram_10k": 0.7368
-      }
+      "per_oz": null,
+      "error": "HTTP 403 for https://www.goldapi.io/api/XAG/EUR: {\"error\":\"Monthly API quota exceeded. Upgrade to Unlimited reqs/month plan.\"}",
+      "status": 403
     },
     "platinum": {
-      "per_oz": 1495,
-      "raw": {
-        "timestamp": 1786264435,
-        "metal": "XPT",
-        "currency": "EUR",
-        "exchange": "IDC",
-        "symbol": "FX_IDC:XPTEUR",
-        "prev_close_price": 1488.44,
-        "open_price": 1492.04,
-        "low_price": 1492.04,
-        "high_price": 1537.39,
-        "open_time": 1786060800,
-        "price": 1495,
-        "ch": 6.56,
-        "chp": 0.44,
-        "ask": 1515,
-        "bid": 1495,
-        "price_gram_24k": 48.0654,
-        "price_gram_22k": 44.0599,
-        "price_gram_21k": 42.0572,
-        "price_gram_20k": 40.0545,
-        "price_gram_18k": 36.049,
-        "price_gram_16k": 32.0436,
-        "price_gram_14k": 28.0381,
-        "price_gram_10k": 20.0272
-      }
+      "per_oz": null,
+      "error": "HTTP 403 for https://www.goldapi.io/api/XPT/EUR: {\"error\":\"Monthly API quota exceeded. Upgrade to Unlimited reqs/month plan.\"}",
+      "status": 403
     },
     "palladium": {
-      "per_oz": 1191.01,
-      "raw": {
-        "timestamp": 1786264435,
-        "metal": "XPD",
-        "currency": "EUR",
-        "exchange": "IDC",
-        "symbol": "FX_IDC:XPDEUR",
-        "prev_close_price": 1188.31,
-        "open_price": 1189.65,
-        "low_price": 1187.02,
-        "high_price": 1217.34,
-        "open_time": 1786060800,
-        "price": 1191.01,
-        "ch": 2.7,
-        "chp": 0.23,
-        "ask": 1199.01,
-        "bid": 1191.01,
-        "price_gram_24k": 38.2919,
-        "price_gram_22k": 35.1009,
-        "price_gram_21k": 33.5054,
-        "price_gram_20k": 31.9099,
-        "price_gram_18k": 28.7189,
-        "price_gram_16k": 25.5279,
-        "price_gram_14k": 22.3369,
-        "price_gram_10k": 15.9549
-      }
+      "per_oz": null,
+      "error": "HTTP 403 for https://www.goldapi.io/api/XPD/EUR: {\"error\":\"Monthly API quota exceeded. Upgrade to Unlimited reqs/month plan.\"}",
+      "status": 403
     }
   }
 }
